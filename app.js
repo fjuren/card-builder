@@ -13,6 +13,15 @@ async function main() {
   await mongoose.connect(mongoDBConnection);
 }
 
+// const { MongoClient, ServerApiVersion } = require('mongodb');
+// const mongoDBConnection = process.env.mongoURL
+// const client = new MongoClient(mongoDBConnection, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   // perform actions on the collection object
+//   client.close();
+// });
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
