@@ -25,7 +25,7 @@ const { Schema } = mongoose;
 
 const TypesSchema = new Schema({
   // _ID
-  cards_id: { type: Schema.Types.ObjectId, ref: 'Cards' },
+  // cards_id: { type: Schema.Types.ObjectId, ref: 'Cards' },
   type: { type: String, required: true },
 });
 
