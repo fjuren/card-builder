@@ -46,16 +46,16 @@ function cardCreate(
   type,
   //   image,
   description,
-  attack1,
-  damage1,
-  cost1,
-  attack2,
-  damage2,
-  cost2,
+  attack_1,
+  damage_1,
+  cost_1,
+  attack_2,
+  damage_2,
+  cost_2,
   weakness,
   resistance,
-  retreatCost,
-  createdDate,
+  retreat_cost,
+  created_date,
   cb
 ) {
   const cardDetail = {
@@ -64,16 +64,16 @@ function cardCreate(
     type,
     // image,
     description,
-    attack1,
-    damage1,
-    cost1,
-    attack2,
-    damage2,
-    createdDate,
+    attack_1,
+    damage_1,
+    cost_1,
+    attack_2,
+    damage_2,
+    created_date,
   };
   // handle fields that aren't required
-  if (cost2 !== false) {
-    cardDetail.cost2 = cost2;
+  if (cost_2 !== false) {
+    cardDetail.cost2 = cost_2;
   }
   if (weakness !== false) {
     cardDetail.weakness = weakness;
@@ -81,8 +81,8 @@ function cardCreate(
   if (resistance !== false) {
     cardDetail.resistance = resistance;
   }
-  if (retreatCost !== false) {
-    cardDetail.retreatCost = retreatCost;
+  if (retreat_cost !== false) {
+    cardDetail.retreat_cost = retreat_cost;
   }
 
   const card = new Cards(cardDetail);
