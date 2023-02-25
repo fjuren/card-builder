@@ -4,8 +4,8 @@ console.log('This script will populate sample game cards, users, and types');
 const userArgs = process.argv.slice(2);
 
 const async = require('async');
-const mongoose = require('mongoose');
 // const Users = require('./models/users');
+const mongoose = require('mongoose');
 const Cards = require('./models/cards');
 const Types = require('./models/types');
 
@@ -18,9 +18,26 @@ async function main() {
 }
 main().catch((err) => console.log(err));
 
-const cards = [];
 const types = [];
+const cards = [];
 // const users = []
+
+// function to create types
+function typeCreate(typeName, cb) {
+  const typeDetail = { type: typeName };
+
+  const type = new Types(typeDetail);
+
+  type.save((err) => {
+    if (err) {
+      cb(err, null);
+      return;
+    }
+    console.log(`New type: ${type}`);
+    types.push(type);
+    cb(null, type);
+  });
+}
 
 // function to create cards
 function cardCreate(
@@ -52,18 +69,28 @@ function cardCreate(
     cost1,
     attack2,
     damage2,
-    cost2,
-    weakness,
-    resistance,
-    retreatCost,
     createdDate,
   };
+  // handle fields that aren't required
+  if (cost2 !== false) {
+    cardDetail.cost2 = cost2;
+  }
+  if (weakness !== false) {
+    cardDetail.weakness = weakness;
+  }
+  if (resistance !== false) {
+    cardDetail.resistance = resistance;
+  }
+  if (retreatCost !== false) {
+    cardDetail.retreatCost = retreatCost;
+  }
 
   const card = new Cards(cardDetail);
 
   card.save((err) => {
     if (err) {
       cb(err, null);
+      return;
     }
     console.log(`New card: ${card}`);
     cards.push(card);
@@ -71,52 +98,36 @@ function cardCreate(
   });
 }
 
-// function to create types
-function typeCreate(typeName, cb) {
-  const typeDetail = { type: typeName };
+// function createCards(cb) {
+//   async.parallel(
+//     [
+//       function (callback) {
+//         cardCreate(
+//           'Charmander',
+//           50,
+//           types[0],
+//           //   'https://static.wikia.nocookie.net/sonicpokemon/images/e/e0/Charmander_AG_anime.png/revision/latest/scale-to-width-down/177?cb=20130714191911',
+//           'Obviously prefers hot places',
+//           'Scratch',
+//           10,
+//           types[1],
+//           'Ember',
+//           30,
+//           types[0],
+//           types[0],
+//           types[0],
+//           types[0],
+//           new Date(),
+//           callback
+//         );
+//       },
+//     ],
+//     cb
+//   );
+// }
 
-  const type = new Types(typeDetail);
-
-  type.save((err) => {
-    if (err) {
-      cb(err, null);
-    }
-    console.log(`New type: ${type}`);
-    types.push(type);
-    cb(null, type);
-  });
-}
-
-function createCards(cb) {
-  async.parallel(
-    [
-      function (callback) {
-        cardCreate(
-          'Charmander',
-          50,
-          types[0],
-          //   'https://static.wikia.nocookie.net/sonicpokemon/images/e/e0/Charmander_AG_anime.png/revision/latest/scale-to-width-down/177?cb=20130714191911',
-          'Obviously prefers hot places',
-          'Scratch',
-          10,
-          types[1],
-          'Ember',
-          30,
-          types[0],
-          types[0],
-          types[0],
-          types[0],
-          new Date(),
-          callback
-        );
-      },
-    ],
-    cb
-  );
-}
-
-function createTypes(cb) {
-  async.parallel(
+function createTypeCards(cb) {
+  async.series(
     [
       function (callback) {
         typeCreate('Normal', callback);
@@ -126,6 +137,26 @@ function createTypes(cb) {
       },
       function (callback) {
         typeCreate('Water', callback);
+      },
+      function (callback) {
+        cardCreate(
+          'Charmander', // name
+          50, // hp
+          [types[0]], // type
+          //   'https://static.wikia.nocookie.net/sonicpokemon/images/e/e0/Charmander_AG_anime.png/revision/latest/scale-to-width-down/177?cb=20130714191911',
+          'Obviously prefers hot places', // description
+          'Scratch', // attack 1
+          10, // damage 1
+          [types[1]], // cost 1
+          'Ember', // attack 2
+          30, // damage 2
+          [types[0]], // cost 2
+          [types[0]], // weakeness
+          [types[0], types[1]], // resistance
+          [types[0]], // retreat cost
+          new Date(), // created date
+          callback
+        );
       },
       //   function (callback) {
       //     typeCreate('Grass', callback);
@@ -177,7 +208,7 @@ function createTypes(cb) {
   );
 }
 
-async.series([createTypes, createCards], (err, results) => {
+async.series([createTypeCards], (err, results) => {
   if (err) {
     console.log(`Final err: ${err}`);
   }

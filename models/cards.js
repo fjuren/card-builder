@@ -29,16 +29,16 @@ const CardSchema = new Schema({
   type: [{ type: Schema.Types.ObjectId, ref: 'Types', required: true }], // 1:Many
   // image: { data: Buffer, contentType: String, required: true }, // TODO update this part near the end of the build to learn images
   description: { type: String, required: true, minLength: 5, maxLength: 100 },
-  attack_1: { type: String },
-  damage_1: { type: Number },
-  cost_1: { type: Schema.Types.ObjectId, ref: 'Types' },
-  attack_2: { type: String },
-  damage_2: { type: Number },
-  cost_2: { type: Schema.Types.ObjectId, ref: 'Types' },
-  weakness: { type: Schema.Types.ObjectId, ref: 'Types' },
-  resistance: { type: Schema.Types.ObjectId, ref: 'Types' },
-  retreat_cost: { type: Schema.Types.ObjectId, ref: 'Types' },
-  created_date: { type: Date },
+  attack_1: { type: String, required: true },
+  damage_1: { type: Number, required: true },
+  cost_1: [{ type: Schema.Types.ObjectId, ref: 'Types', required: true }],
+  attack_2: { type: String, required: true },
+  damage_2: { type: Number, required: true },
+  cost_2: [{ type: Schema.Types.ObjectId, ref: 'Types' }],
+  weakness: [{ type: Schema.Types.ObjectId, ref: 'Types' }],
+  resistance: [{ type: Schema.Types.ObjectId, ref: 'Types' }],
+  retreat_cost: [{ type: Schema.Types.ObjectId, ref: 'Types' }],
+  created_date: { type: Date, required: true },
 });
 
 // virtual
