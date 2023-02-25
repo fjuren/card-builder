@@ -6,7 +6,7 @@ const userArgs = process.argv.slice(2);
 const async = require('async');
 const mongoose = require('mongoose');
 // const Users = require('./models/users');
-// const Cards = require('./models/cards');
+const Cards = require('./models/cards');
 const Types = require('./models/types');
 
 mongoose.set('strictQuery', false);
@@ -18,11 +18,60 @@ async function main() {
 }
 main().catch((err) => console.log(err));
 
-// const cards = [];
+const cards = [];
 const types = [];
 // const users = []
 
-// create the types
+// function to create cards
+function cardCreate(
+  name,
+  hp,
+  type,
+  //   image,
+  description,
+  attack1,
+  damage1,
+  cost1,
+  attack2,
+  damage2,
+  cost2,
+  weakness,
+  resistance,
+  retreatCost,
+  createdDate,
+  cb
+) {
+  const cardDetail = {
+    name,
+    hp,
+    type,
+    // image,
+    description,
+    attack1,
+    damage1,
+    cost1,
+    attack2,
+    damage2,
+    cost2,
+    weakness,
+    resistance,
+    retreatCost,
+    createdDate,
+  };
+
+  const card = new Cards(cardDetail);
+
+  card.save((err) => {
+    if (err) {
+      cb(err, null);
+    }
+    console.log(`New card: ${card}`);
+    cards.push(card);
+    cb(null, card);
+  });
+}
+
+// function to create types
 function typeCreate(typeName, cb) {
   const typeDetail = { type: typeName };
 
@@ -36,6 +85,34 @@ function typeCreate(typeName, cb) {
     types.push(type);
     cb(null, type);
   });
+}
+
+function createCards(cb) {
+  async.parallel(
+    [
+      function (callback) {
+        cardCreate(
+          'Charmander',
+          50,
+          types[0],
+          //   'https://static.wikia.nocookie.net/sonicpokemon/images/e/e0/Charmander_AG_anime.png/revision/latest/scale-to-width-down/177?cb=20130714191911',
+          'Obviously prefers hot places',
+          'Scratch',
+          10,
+          types[1],
+          'Ember',
+          30,
+          types[0],
+          types[0],
+          types[0],
+          types[0],
+          new Date(),
+          callback
+        );
+      },
+    ],
+    cb
+  );
 }
 
 function createTypes(cb) {
@@ -100,7 +177,7 @@ function createTypes(cb) {
   );
 }
 
-async.series([createTypes], (err, results) => {
+async.series([createTypes, createCards], (err, results) => {
   if (err) {
     console.log(`Final err: ${err}`);
   }
