@@ -5,8 +5,13 @@
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
+    <% if (error) { %>
+    <h1><%= title %></h1>
+    <p>Sorry there was an error. Please try again later</p>
+    <% } %>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <p>Number of cards created: <%= cardData.cardCount %></p>
+    <p>Number of cards created: <%= cardData.allCardData %></p>
   </body>
 </html>
