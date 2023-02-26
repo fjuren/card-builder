@@ -44,12 +44,14 @@ function cardCreate(
   name,
   hp,
   type,
-  //   image,
+  // image,
   description,
   attack_1,
+  attack_1_description,
   damage_1,
   cost_1,
   attack_2,
+  attack_2_description,
   damage_2,
   cost_2,
   weakness,
@@ -65,13 +67,23 @@ function cardCreate(
     // image,
     description,
     attack_1,
-    damage_1,
     cost_1,
     attack_2,
-    damage_2,
     created_date,
   };
   // handle fields that aren't required
+  if (attack_1_description !== false) {
+    cardDetail.attack_1_description = attack_1_description;
+  }
+  if (damage_1 !== false) {
+    cardDetail.damage_1 = damage_1;
+  }
+  if (damage_2 !== false) {
+    cardDetail.damage_2 = damage_2;
+  }
+  if (attack_2_description !== false) {
+    cardDetail.attack_2_description = attack_2_description;
+  }
   if (cost_2 !== false) {
     cardDetail.cost2 = cost_2;
   }
@@ -98,37 +110,10 @@ function cardCreate(
   });
 }
 
-// function createCards(cb) {
-//   async.parallel(
-//     [
-//       function (callback) {
-//         cardCreate(
-//           'Charmander',
-//           50,
-//           types[0],
-//           //   'https://static.wikia.nocookie.net/sonicpokemon/images/e/e0/Charmander_AG_anime.png/revision/latest/scale-to-width-down/177?cb=20130714191911',
-//           'Obviously prefers hot places',
-//           'Scratch',
-//           10,
-//           types[1],
-//           'Ember',
-//           30,
-//           types[0],
-//           types[0],
-//           types[0],
-//           types[0],
-//           new Date(),
-//           callback
-//         );
-//       },
-//     ],
-//     cb
-//   );
-// }
-
 function createTypeCards(cb) {
   async.series(
     [
+      //  ADD FAKE TYPE DATA
       function (callback) {
         typeCreate('Normal', callback);
       },
@@ -139,16 +124,67 @@ function createTypeCards(cb) {
         typeCreate('Water', callback);
       },
       function (callback) {
+        typeCreate('Grass', callback);
+      },
+      function (callback) {
+        typeCreate('Electric', callback);
+      },
+      function (callback) {
+        typeCreate('Ice', callback);
+      },
+      function (callback) {
+        typeCreate('Fighting', callback);
+      },
+      function (callback) {
+        typeCreate('Poison', callback);
+      },
+      function (callback) {
+        typeCreate('Ground', callback);
+      },
+      function (callback) {
+        typeCreate('Flying', callback);
+      },
+      function (callback) {
+        typeCreate('Psychic', callback);
+      },
+      function (callback) {
+        typeCreate('Bug', callback);
+      },
+      function (callback) {
+        typeCreate('Rock', callback);
+      },
+      function (callback) {
+        typeCreate('Ghost', callback);
+      },
+      function (callback) {
+        typeCreate('Dark', callback);
+      },
+      function (callback) {
+        typeCreate('Dragon', callback);
+      },
+      function (callback) {
+        typeCreate('Steel', callback);
+      },
+      function (callback) {
+        typeCreate('Fairy', callback);
+      },
+      function (callback) {
+        typeCreate('Energy', callback);
+      },
+      //  ADD FAKE CARD DATA
+      function (callback) {
         cardCreate(
           'Charmander', // name
           50, // hp
-          [types[0]], // type
-          //   'https://static.wikia.nocookie.net/sonicpokemon/images/e/e0/Charmander_AG_anime.png/revision/latest/scale-to-width-down/177?cb=20130714191911',
+          types[0], // type
+          // 'https://static.wikia.nocookie.net/sonicpokemon/images/e/e0/Charmander_AG_anime.png/revision/latest/scale-to-width-down/177?cb=20130714191911',
           'Obviously prefers hot places', // description
           'Scratch', // attack 1
+          null, // attack 1 description
           10, // damage 1
           [types[1]], // cost 1
           'Ember', // attack 2
+          null, // attack 2 description
           30, // damage 2
           [types[0]], // cost 2
           [types[0]], // weakeness
@@ -158,51 +194,72 @@ function createTypeCards(cb) {
           callback
         );
       },
-      //   function (callback) {
-      //     typeCreate('Grass', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Electric', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Ice', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Fighting', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Poison', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Ground', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Flying', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Psychic', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Bug', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Rock', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Ghost', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Dark', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Dragon', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Steel', callback);
-      //   },
-      //   function (callback) {
-      //     typeCreate('Fairy', callback);
-      //   },
+      function (callback) {
+        cardCreate(
+          'Pikachu', // name
+          60, // hp
+          types[4], // type
+          // 'https://static.wikia.nocookie.net/sonicpokemon/images/e/e0/Charmander_AG_anime.png/revision/latest/scale-to-width-down/177?cb=20130714191911',
+          'Its nature is to store up electricity', // description
+          'Meal Time', // attack 1
+          null, // attack 1 description
+          10, // damage 1
+          [types[4]], // cost 1
+          'Gnaw', // attack 2
+          null, // attack 2 description
+          20, // damage 2
+          [types[4], types[18]], // cost 2
+          [types[2]], // weakeness
+          [types[4]], // resistance
+          [types[18], types[18]], // retreat cost
+          new Date(), // created date
+          callback
+        );
+      },
+      function (callback) {
+        cardCreate(
+          'Squirtle', // name
+          50, // hp
+          types[2], // type
+          // 'https://static.wikia.nocookie.net/sonicpokemon/images/e/e0/Charmander_AG_anime.png/revision/latest/scale-to-width-down/177?cb=20130714191911',
+          'After birth, its back swells and hardens into a shell', // description
+          'Bubble', // attack 1
+          'Flip a coin. If heads, the defending creature is now paralyzed', // attack 1 description
+          10, // damage 1
+          [types[2]], // cost 1
+          'Withdraw', // attack 2
+          "Flip a coin. If heads, prevent all damage done to Squirtle during your opponent's next turn. Any other effects of attacks still happen", // attack 2 description
+          null, // damage 2
+          [types[2], types[18]], // cost 2
+          [types[4]], // weakeness
+          [], // resistance
+          [types[18]], // retreat cost
+          new Date(), // created date
+          callback
+        );
+      },
+      function (callback) {
+        cardCreate(
+          'Bulbasaur', // name
+          60, // hp
+          types[3], // type
+          // 'https://static.wikia.nocookie.net/sonicpokemon/images/e/e0/Charmander_AG_anime.png/revision/latest/scale-to-width-down/177?cb=20130714191911',
+          'For some time after its birth, it grows by gaining nourishment from the seed on its back', // description
+          'Shake Vine', // attack 1
+          'The defending creature is now asleep', // attack 1 description
+          null, // damage 1
+          [], // cost 1
+          'Bullet Seed', // attack 2
+          'Flip 4 coins. This attack does 10 damage times the number of heads', // attack 2
+          10, // damage 2
+          [types[3], types[18]], // cost 2
+          [types[1]], // weakeness
+          [types[2]], // resistance
+          [types[18]], // retreat cost
+          new Date(), // created date
+          callback
+        );
+      },
     ],
     cb
   );
