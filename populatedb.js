@@ -4,8 +4,8 @@ console.log('This script will populate sample game cards, users, and types');
 const userArgs = process.argv.slice(2);
 
 const async = require('async');
-// const Users = require('./models/users');
 const mongoose = require('mongoose');
+const Users = require('./models/users');
 const Cards = require('./models/cards');
 const Types = require('./models/types');
 
@@ -18,9 +18,38 @@ async function main() {
 }
 main().catch((err) => console.log(err));
 
+const users = [];
 const types = [];
 const cards = [];
-// const users = []
+
+// function to create users
+function userCreate(
+  card_id,
+  username,
+  email,
+  password,
+  account_created_date,
+  cb
+) {
+  const userDetail = {
+    card_id,
+    username,
+    email,
+    password,
+    account_created_date,
+  };
+  const user = new Users(userDetail);
+
+  user.save((err) => {
+    if (err) {
+      cb(err, null);
+      return;
+    }
+    console.log(`New user: ${user}`);
+    users.push(user);
+    cb(null, user);
+  });
+}
 
 // function to create types
 function typeCreate(typeName, cb) {
@@ -110,7 +139,7 @@ function cardCreate(
   });
 }
 
-function createTypeCards(cb) {
+function createData(cb) {
   async.series(
     [
       //  ADD FAKE TYPE DATA
@@ -260,12 +289,42 @@ function createTypeCards(cb) {
           callback
         );
       },
+      function (callback) {
+        userCreate(
+          [cards[3], cards[1]], // card_id
+          'user1', // username,
+          'user1@gmail.com', // email
+          'user1!', // password
+          new Date(), // account_created_date
+          callback
+        );
+      },
+      function (callback) {
+        userCreate(
+          [cards[0]], // card_id
+          'user2', // username,
+          'user2@gmail.com', // email
+          'user2!', // password
+          new Date(), // account_created_date
+          callback
+        );
+      },
+      function (callback) {
+        userCreate(
+          [cards[2]], // card_id
+          'user3', // username,
+          'user3@gmail.com', // email
+          'user3!', // password
+          new Date(), // account_created_date
+          callback
+        );
+      },
     ],
     cb
   );
 }
 
-async.series([createTypeCards], (err, results) => {
+async.series([createData], (err) => {
   if (err) {
     console.log(`Final err: ${err}`);
   }
