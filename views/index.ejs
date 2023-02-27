@@ -2,7 +2,8 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <!-- <link rel="stylesheet" href="/stylesheets/style.css" /> -->
+    <link rel="stylesheet" href="/stylesheets/communityCreations.css" />
   </head>
   <body>
     <% if (error) { %>
@@ -10,8 +11,20 @@
     <p>Sorry there was an error. Please try again later</p>
     <% } %>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
     <p>Number of cards created: <%= cardData.cardCount %></p>
-    <p>Number of cards created: <%= cardData.allCardData %></p>
+    <div id="all-cards">
+      <% cardData.allCardData.forEach((c) => { %>
+      <div
+        class="card-Container"
+        style="border-color: black; border-width: 5px; border: solid"
+      >
+        <div clas="name">
+          <h4><%= c.name %></h4>
+        </div>
+        <p>hp:</p>
+        <h4><%= c.hp %></h4>
+      </div>
+      <% }) %>
+    </div>
   </body>
 </html>
