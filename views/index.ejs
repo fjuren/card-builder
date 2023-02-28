@@ -11,9 +11,9 @@
     <p>Sorry there was an error. Please try again later</p>
     <% } %>
     <h1><%= title %></h1>
-    <p>Number of cards created: <%= cardData.cardCount %></p>
+    <p>Number of cards created: <%= cardCount %></p>
     <div id="all-cards">
-      <% cardData.allCardData.forEach((c) => { %>
+      <% allCardData.forEach((c) => { %>
       <div
         class="card-Container"
         style="border-color: black; border-width: 5px; border: solid"
@@ -25,13 +25,13 @@
           <h4><%= c.hp %> HP</h4>
         </div>
         <div class="type">
-          <p><%= c.type %> type</p>
+          <p>Type: <%= c.type.type %> type</p>
         </div>
         <div class="image">
           <p>Image will be displayed here</p>
         </div>
         <div class="cost-1">
-          <p><%= c.cost_1 %></p>
+          <p>Cost: <%= c.cost_1.type %></p>
         </div>
         <div class="attack-1">
           <h4><%= c.attack_1 %></h4>
@@ -43,7 +43,7 @@
           <h4><%= c.damange_1 %></h4>
         </div>
         <div class="cost-2">
-          <p><%= c.cost_2 %></p>
+          <p>Cost: <%= c.cost_2.type %></p>
         </div>
         <div class="attack-2">
           <h4><%= c.attack_2 %></h4>
@@ -55,13 +55,13 @@
           <h4><%= c.damage_2 %></h4>
         </div>
         <div class="weakness">
-          <p><%= c.weakness %></p>
+          <p>Weakness: <%= c.weakness.type %></p>
         </div>
         <div class="resistance">
-          <p><%= c.resistance %></p>
+          <p>Resistance: <%= c.resistance.type %></p>
         </div>
         <div class="retreat-cost">
-          <p><%= c.retreat_cost %></p>
+          <p>Retreat Cost: <%= c.retreat_cost.type %></p>
         </div>
         <div class="description">
           <p><%= c.description %></p>
