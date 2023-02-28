@@ -12,11 +12,18 @@ exports.index = (req, res) => {
         Cards.countDocuments({}, cb);
       },
       allCardData(cb) {
-        Cards.find({}).populate('type').exec(cb);
+        Cards.find({})
+          .populate('type')
+          .populate('cost_1')
+          .populate('cost_2')
+          .populate('weakness')
+          .populate('resistance')
+          .populate('retreat_cost')
+          .exec(cb);
       },
-      types(cb) {
-        Types.find(cb);
-      },
+      // types(cb) {
+      //   Types.find(cb);
+      // },
     },
     (err, result) => {
       console.log(`RESULTS: ${result.allCardData}`);
