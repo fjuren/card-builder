@@ -26,7 +26,42 @@ exports.index = (req, res) => {
       // },
     },
     (err, result) => {
-      console.log(`RESULTS: ${result.allCardData}`);
+      const name = [];
+      const cost_1 = [];
+      result.allCardData.forEach((c) => {
+        console.log(`name: ${c.name}-------------------`);
+        name.push(c.name);
+        console.log(`type ${c.type.type}`);
+
+        // Query cost 1
+        c.cost_1.forEach((c1) => {
+          console.log(`cost1 ${c1.type}`);
+          cost_1.push(c1.type);
+        });
+
+        // Query cost 2
+        c.cost_2.forEach((c2) => {
+          console.log(`cost2 ${c2.type}`);
+        });
+
+        // Query weaknesses
+        c.weakness.forEach((w) => {
+          console.log(`weakness ${w.type}`);
+        });
+
+        // Query resistance
+        c.resistance.forEach((r) => {
+          console.log(`resistance ${r.type}`);
+        });
+
+        // Query retreate cost
+        c.retreat_cost.forEach((rc) => {
+          console.log(`retreatCost ${rc.type}`);
+        });
+      });
+
+      // console.log(`RESULTS: ${result.allCardData}`);
+      // console.log(`RESULTS: ${result}`);
       res.render('index', {
         title: 'Community Creations',
         error: err,

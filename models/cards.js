@@ -85,12 +85,7 @@ const CardSchema = new Schema({
       ref: 'Types',
     },
   ],
-  weakness: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Types',
-    },
-  ],
+  weakness: [{ type: Schema.Types.ObjectId, ref: 'Types' }],
   resistance: [
     {
       type: Schema.Types.ObjectId,

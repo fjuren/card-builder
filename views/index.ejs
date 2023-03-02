@@ -25,7 +25,8 @@
           <h4><%= c.hp %> HP</h4>
         </div>
         <div class="type">
-          <p>Type: <%= c.type.type %> type</p>
+          <!-- <p>Type: <%= c.type.type %> type</p> -->
+          <p>Type: <%= c.type %> type</p>
         </div>
         <div class="image">
           <p>Image will be displayed here</p>
@@ -56,6 +57,7 @@
         </div>
         <div class="weakness">
           <p>Weakness: <%= c.weakness %></p>
+          <!-- <p>Weakness: <%= c.weakness[0].type %></p> -->
         </div>
         <div class="resistance">
           <p>Resistance: <%= c.resistance %></p>
