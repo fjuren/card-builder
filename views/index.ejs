@@ -13,60 +13,58 @@
     <h1><%= title %></h1>
     <p>Number of cards created: <%= cardCount %></p>
     <div id="all-cards">
-      <% allCardData.forEach((c) => { %>
+      <% name.forEach((n, i) => { %>
       <div
         class="card-Container"
         style="border-color: black; border-width: 5px; border: solid"
       >
         <div clas="name">
-          <h4><%= c.name %></h4>
+          <h4><%= name[i] %></h4>
         </div>
         <div class="hp">
-          <h4><%= c.hp %> HP</h4>
+          <h4><%= hp[i] %> HP</h4>
         </div>
         <div class="type">
-          <!-- <p>Type: <%= c.type.type %> type</p> -->
-          <p>Type: <%= c.type %> type</p>
+          <p>Type: <%= type[i] %> type</p>
         </div>
         <div class="image">
           <p>Image will be displayed here</p>
         </div>
         <div class="cost-1">
-          <p>Cost: <%= c.cost_1 %></p>
+          <p>Cost: <%= cost_1[i] %></p>
         </div>
         <div class="attack-1">
-          <h4><%= c.attack_1 %></h4>
+          <h4><%= attack_1[i] %></h4>
         </div>
         <div class="attack-1-description">
-          <p><%= c.attack_1_description %></p>
+          <p><%= attack_1_description[i] %></p>
         </div>
         <div class="damage-1">
-          <h4><%= c.damange_1 %></h4>
+          <h4><%= damage_1[i] %></h4>
         </div>
         <div class="cost-2">
-          <p>Cost: <%= c.cost_2 %></p>
+          <p>Cost: <%= cost_2[i] %></p>
         </div>
         <div class="attack-2">
-          <h4><%= c.attack_2 %></h4>
+          <h4><%= attack_2[i] %></h4>
         </div>
         <div class="attack-2-description">
-          <p><%= c.attack_2_description %></p>
+          <p><%= attack_2_description[i] %></p>
         </div>
         <div class="damage-2">
-          <h4><%= c.damage_2 %></h4>
+          <h4><%= damage_2[i] %></h4>
         </div>
         <div class="weakness">
-          <p>Weakness: <%= c.weakness %></p>
-          <!-- <p>Weakness: <%= c.weakness[0].type %></p> -->
+          <p>Weakness: <%= weakness[i] %></p>
         </div>
         <div class="resistance">
-          <p>Resistance: <%= c.resistance %></p>
+          <p>Resistance: <%= resistance[i] %></p>
         </div>
         <div class="retreat-cost">
-          <p>Retreat Cost: <%= c.retreat_cost %></p>
+          <p>Retreat Cost: <%= retreat_cost[i] %></p>
         </div>
         <div class="description">
-          <p><%= c.description %></p>
+          <p><%= description[i] %></p>
         </div>
       </div>
       <% }) %>
