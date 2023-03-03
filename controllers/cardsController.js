@@ -26,14 +26,28 @@ exports.index = (req, res) => {
       // },
     },
     (err, result) => {
-      console.log(`RESULTS: ${result.allCardData}`);
-      // console.log(`RESULTS: ${result}`);
+      // console.log(`RESULTS: ${result.allCardData}`);
       res.render('index', {
         title: 'Community Creations',
         error: err,
         cardCount: result.cardCount,
         allCardData: result.allCardData,
       });
+    }
+  );
+};
+
+exports.card_details = (req, res, next) => {
+  console.log(req);
+  async.parallel(
+    {
+      cardDetails(cb) {
+        // Cards.findById({req.})
+      },
+    },
+    (err, result) => {
+      console.log('made it');
+      res.render('card_details', {});
     }
   );
 };

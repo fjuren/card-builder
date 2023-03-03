@@ -105,8 +105,8 @@ const CardSchema = new Schema({
 });
 
 // virtual
-// CardSchema.virtual("url").get(function()) {
-//     return `/community-creations/`
-// }
+CardSchema.virtual('url').get(function () {
+  return `community-creations/cards/${this._id}`;
+});
 
 module.exports = mongoose.model('Cards', CardSchema);

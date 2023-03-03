@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title><%= title %></title>
-    <!-- <link rel="stylesheet" href="/stylesheets/style.css" /> -->
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/stylesheets/communityCreations.css" />
   </head>
   <body>
@@ -14,74 +17,76 @@
     <p>Number of cards created: <%= cardCount %></p>
     <div id="all-cards">
       <% allCardData.forEach((c) => { %>
-      <div
-        class="card-Container"
-        style="border-color: black; border-width: 5px; border: solid"
-      >
-        <div clas="name">
-          <h4><%= c.name %></h4>
+      <a href="<%= c.url %>">
+        <div
+          class="card-container"
+          style="border-color: black; border-width: 5px; border: solid"
+        >
+          <div clas="name">
+            <h4><%= c.name %></h4>
+          </div>
+          <div class="hp">
+            <h4><%= c.hp %> HP</h4>
+          </div>
+          <div class="type">
+            <p>Type: <%= c.type.type %> type</p>
+          </div>
+          <div class="image">
+            <p>Image will be displayed here</p>
+          </div>
+          <div class="cost-1">
+            <p>Cost:</p>
+            <% c.cost_1.forEach((c1) => { %>
+            <p><%= c1.type %></p>
+            <% }) %>
+          </div>
+          <div class="attack-1">
+            <h4><%= c.attack_1 %></h4>
+          </div>
+          <div class="attack-1-description">
+            <p><%= c.attack_1_description %></p>
+          </div>
+          <div class="damage-1">
+            <h4><%= c.damage_1 %></h4>
+          </div>
+          <div class="cost-2">
+            <p>Cost:</p>
+            <% c.cost_2.forEach((c2) => { %>
+            <p><%= c2.type %></p>
+            <% }) %>
+          </div>
+          <div class="attack-2">
+            <h4><%= c.attack_2 %></h4>
+          </div>
+          <div class="attack-2-description">
+            <p><%= c.attack_2_description %></p>
+          </div>
+          <div class="damage-2">
+            <h4><%= c.damage_2 %></h4>
+          </div>
+          <div class="weakness">
+            <p>Weakness:</p>
+            <% c.weakness.forEach((w) => { %>
+            <p><%= w.type %></p>
+            <% }) %>
+          </div>
+          <div class="resistance">
+            <p>Resistance:</p>
+            <% c.resistance.forEach((r) => { %>
+            <p><%= r.type %></p>
+            <% }) %>
+          </div>
+          <div class="retreat-cost">
+            <p>Retreat cost:</p>
+            <% c.retreat_cost.forEach((rc) => { %>
+            <p><%= rc.type %></p>
+            <% }) %>
+          </div>
+          <div class="description">
+            <p><%= c.description %></p>
+          </div>
         </div>
-        <div class="hp">
-          <h4><%= c.hp %> HP</h4>
-        </div>
-        <div class="type">
-          <p>Type: <%= c.type.type %> type</p>
-        </div>
-        <div class="image">
-          <p>Image will be displayed here</p>
-        </div>
-        <div class="cost-1">
-          <p>Cost:</p>
-          <% c.cost_1.forEach((c1) => { %>
-          <p><%= c1.type %></p>
-          <% }) %>
-        </div>
-        <div class="attack-1">
-          <h4><%= c.attack_1 %></h4>
-        </div>
-        <div class="attack-1-description">
-          <p><%= c.attack_1_description %></p>
-        </div>
-        <div class="damage-1">
-          <h4><%= c.damage_1 %></h4>
-        </div>
-        <div class="cost-2">
-          <p>Cost:</p>
-          <% c.cost_2.forEach((c2) => { %>
-          <p><%= c2.type %></p>
-          <% }) %>
-        </div>
-        <div class="attack-2">
-          <h4><%= c.attack_2 %></h4>
-        </div>
-        <div class="attack-2-description">
-          <p><%= c.attack_2_description %></p>
-        </div>
-        <div class="damage-2">
-          <h4><%= c.damage_2 %></h4>
-        </div>
-        <div class="weakness">
-          <p>Weakness:</p>
-          <% c.weakness.forEach((w) => { %>
-          <p><%= w.type %></p>
-          <% }) %>
-        </div>
-        <div class="resistance">
-          <p>Resistance:</p>
-          <% c.resistance.forEach((r) => { %>
-          <p><%= r.type %></p>
-          <% }) %>
-        </div>
-        <div class="retreat-cost">
-          <p>Retreat cost:</p>
-          <% c.retreat_cost.forEach((rc) => { %>
-          <p><%= rc.type %></p>
-          <% }) %>
-        </div>
-        <div class="description">
-          <p><%= c.description %></p>
-        </div>
-      </div>
+      </a>
       <% }) %>
     </div>
   </body>

@@ -7,6 +7,7 @@ const cardsController = require('../controllers/cardsController');
 router.get('/', cardsController.index);
 
 // GET request for viewing individual cards
+router.get('/cards/:id', cardsController.card_details);
 
 // GET request for creating a new card
 

@@ -21,6 +21,8 @@
       }
     ],
     "camelcase": "off",
+    "no-underscore-dangle": "off",
+    "prefer-arrow-callback": "off",
     "no-unused-vars": "warn",
     "no-console": "off",
     "func-names": "off",
