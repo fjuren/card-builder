@@ -3,10 +3,80 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title></title>
+    <title><%= title %></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="" />
   </head>
-  <body></body>
+  <body>
+    <h1><%= title %></h1>
+    <div
+      class="card-container"
+      style="border-color: black; border-width: 5px; border: solid"
+    >
+      <div clas="name">
+        <h4><%= cardDetails.name %></h4>
+      </div>
+      <div class="hp">
+        <h4><%= cardDetails.hp %> HP</h4>
+      </div>
+      <div class="type">
+        <p>Type: <%= cardDetails.type.type %> type</p>
+      </div>
+      <div class="image">
+        <p>Image will be displayed here</p>
+      </div>
+      <div class="cost-1">
+        <p>Cost:</p>
+        <% cardDetails.cost_1.forEach((c1) => { %>
+        <p><%= c1.type %></p>
+        <% }) %>
+      </div>
+      <div class="attack-1">
+        <h4><%= cardDetails.attack_1 %></h4>
+      </div>
+      <div class="attack-1-description">
+        <p><%= cardDetails.attack_1_description %></p>
+      </div>
+      <div class="damage-1">
+        <h4><%= cardDetails.damage_1 %></h4>
+      </div>
+      <div class="cost-2">
+        <p>Cost:</p>
+        <% cardDetails.cost_2.forEach((c2) => { %>
+        <p><%= c2.type %></p>
+        <% }) %>
+      </div>
+      <div class="attack-2">
+        <h4><%= cardDetails.attack_2 %></h4>
+      </div>
+      <div class="attack-2-description">
+        <p><%= cardDetails.attack_2_description %></p>
+      </div>
+      <div class="damage-2">
+        <h4><%= cardDetails.damage_2 %></h4>
+      </div>
+      <div class="weakness">
+        <p>Weakness:</p>
+        <% cardDetails.weakness.forEach((w) => { %>
+        <p><%= w.type %></p>
+        <% }) %>
+      </div>
+      <div class="resistance">
+        <p>Resistance:</p>
+        <% cardDetails.resistance.forEach((r) => { %>
+        <p><%= r.type %></p>
+        <% }) %>
+      </div>
+      <div class="retreat-cost">
+        <p>Retreat cost:</p>
+        <% cardDetails.retreat_cost.forEach((rc) => { %>
+        <p><%= rc.type %></p>
+        <% }) %>
+      </div>
+      <div class="description">
+        <p><%= cardDetails.description %></p>
+      </div>
+    </div>
+  </body>
 </html>

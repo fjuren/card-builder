@@ -38,16 +38,26 @@ exports.index = (req, res) => {
 };
 
 exports.card_details = (req, res, next) => {
-  console.log(req);
   async.parallel(
     {
       cardDetails(cb) {
-        // Cards.findById({req.})
+        Cards.findById(req.params.id)
+          .populate('type')
+          .populate('cost_1')
+          .populate('cost_2')
+          .populate('weakness')
+          .populate('resistance')
+          .populate('retreat_cost')
+          .exec(cb);
       },
     },
     (err, result) => {
-      console.log('made it');
-      res.render('card_details', {});
+      console.log(result.cardDetails);
+      res.render('card_details', {
+        title: `${result.cardDetails.name} Card`,
+        error: err,
+        cardDetails: result.cardDetails,
+      });
     }
   );
 };
