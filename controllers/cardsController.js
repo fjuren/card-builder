@@ -64,15 +64,15 @@ exports.card_details = (req, res, next) => {
 exports.card_create = (req, res, next) => {
   async.parallel(
     {
-      // cardForm(cd) {
-      //   // test
-      // },
+      types(cb) {
+        Types.find({}, cb);
+      },
     },
     (err, result) => {
       res.render('card_create', {
         title: 'Create a new card',
         error: err,
-        test: result,
+        types: result.types,
       });
     }
   );
