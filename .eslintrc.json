@@ -9,7 +9,9 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
+    "requireConfigFile": false, // <== ADD THIS
     "ecmaVersion": 2018
   },
   "plugins": ["prettier"],

@@ -1,5 +1,5 @@
 const async = require('async');
-const { body } = require('express-validator');
+const { body, validationResult } = require('express-validator');
 const Cards = require('../models/cards');
 const Types = require('../models/types');
 
@@ -37,6 +37,7 @@ exports.index = (req, res) => {
   );
 };
 
+// Dedicated page to each card
 exports.card_details = (req, res, next) => {
   async.parallel(
     {
@@ -61,7 +62,8 @@ exports.card_details = (req, res, next) => {
   );
 };
 
-exports.card_create = (req, res, next) => {
+// Get the card creation form
+exports.card_create_get = (req, res, next) => {
   async.parallel(
     {
       types(cb) {
@@ -77,3 +79,82 @@ exports.card_create = (req, res, next) => {
     }
   );
 };
+
+// Post card information to db
+exports.card_create_post = [
+  // validate and sanitze
+  body('name', 'Your card needs a name').isLength({ min: 1 }).trim().escape(),
+  body('hp', 'Come on be realistic here')
+    .isLength({ max: 250 })
+    .trim()
+    .escape(),
+  body('type').escape(),
+  body('description').isLength({ min: 5, max: 100 }).trim().escape(),
+  body('attack_1').trim().escape(),
+  body('attack_1_description').isLength({ max: 500 }).trim().escape(),
+  body('damage_1').isInt({ max: 30 }).trim().escape(),
+  body('cost_1').escape(),
+  body('attack_2').trim().escape(),
+  body('attack_2_description').isLength({ max: 500 }).trim().escape(),
+  body('damage_2').isInt({ max: 30 }).trim().escape(),
+  body('cost_2').escape(),
+  body('weakness').escape(),
+  body('retreat_cost').escape(),
+
+  (req, res, next) => {
+    // Find validation errors in this request & wraps them in an object
+    const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //   return res.status(400).json({ errors: errors.array() });
+    // }
+
+    // add valiated & sanitized data to the schema
+    const card = new Cards({
+      name: req.body.name,
+      hp: req.body.hp,
+      type: req.body.type,
+      description: req.body.description,
+      attack_1: req.body.attack_1,
+      attack_1_description: req.body.attack_1_description,
+      damage_1: req.body.damage_1,
+      cost_1: req.body.cost_1,
+      attack2: req.body.attack2,
+      attack_2_description: req.body.attack_2_description,
+      damage_2: req.body.damage_2,
+      cost_2: req.body.cost_2,
+      weakness: req.body.weakness,
+      retreat_cost: req.body.retreat_cost,
+    });
+
+    // rendering form if there are errors with satnitized values & error messages
+    if (!errors.isEmpty()) {
+      async.parallel(
+        {
+          types(cb) {
+            Types.find(cb);
+          },
+        },
+        (err, result) => {
+          if (err) {
+            // return next(err);
+          }
+          res.render('card_create', {
+            title: 'Create a new card',
+            errors: errors.array(),
+            types: result.types,
+            card,
+          });
+        }
+      );
+      // return;
+    }
+    // save it to the collection in db since data has passed validation
+    card.save((err) => {
+      if (err) {
+        // return next(err);
+      }
+      // if all successful, redirect back to the newly created card
+      res.redirect(card.url);
+    });
+  },
+];

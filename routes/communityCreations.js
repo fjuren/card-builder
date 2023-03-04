@@ -10,9 +10,10 @@ router.get('/', cardsController.index);
 router.get('/cards/:id', cardsController.card_details);
 
 // GET request for creating a new card
-router.get('/create-card', cardsController.card_create);
+router.get('/create-card', cardsController.card_create_get);
 
 // POST request for creatign a new card
+router.post('/create-card', cardsController.card_create_post);
 
 // GET request for deleteing a card
 
