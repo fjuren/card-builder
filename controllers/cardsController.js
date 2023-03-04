@@ -52,11 +52,27 @@ exports.card_details = (req, res, next) => {
       },
     },
     (err, result) => {
-      console.log(result.cardDetails);
       res.render('card_details', {
         title: `${result.cardDetails.name} Card`,
         error: err,
         cardDetails: result.cardDetails,
+      });
+    }
+  );
+};
+
+exports.card_create = (req, res, next) => {
+  async.parallel(
+    {
+      // cardForm(cd) {
+      //   // test
+      // },
+    },
+    (err, result) => {
+      res.render('card_create', {
+        title: 'Create a new card',
+        error: err,
+        test: result,
       });
     }
   );
