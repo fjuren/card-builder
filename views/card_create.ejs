@@ -32,50 +32,50 @@
         <label for="description">Description:</label>
         <input type="text" id="description" name="description" />
       </div>
-      <div class="attack-1">
-        <label for="attack-1">Attack:</label>
-        <input type="text" id="attack-1" name="attack-1" />
+      <div class="attack_1">
+        <label for="attack_1">Attack:</label>
+        <input type="text" id="attack_1" name="attack_1" />
       </div>
-      <div class="attack-1-description">
-        <label for="attack-1-description">Attack description:</label>
+      <div class="attack_1_description">
+        <label for="attack_1_description">Attack description:</label>
         <input
           type="text"
-          id="attack-1-description"
-          name="attack-1-description"
+          id="attack_1_description"
+          name="attack_1_description"
         />
       </div>
-      <div class="damage-1">
-        <label for="damage-1">Damage:</label>
-        <input type="number" id="damage-1" name="damage-1" />
+      <div class="damage_1">
+        <label for="damage_1">Damage:</label>
+        <input type="number" id="damage_1" name="damage_1" />
       </div>
-      <div class="cost-1">
-        <label for="cost-1">Cost</label>
+      <div class="cost_1">
+        <label for="cost_1">Cost</label>
         <% types.forEach((t) => { %>
-        <input type="checkbox" id="cost-1" name="cost-1" />
-        <label for="cost-1"><%= t.type %></label>
+        <input type="checkbox" id="cost_1" name="cost_1" />
+        <label for="cost_1"><%= t.type %></label>
         <% }) %>
       </div>
-      <div class="attack-2">
-        <label for="attack-2">Attack:</label>
-        <input type="text" id="attack-2" name="attack-2" />
+      <div class="attack_2">
+        <label for="attack_2">Attack:</label>
+        <input type="text" id="attack_2" name="attack_2" />
       </div>
-      <div class="attack-2-description">
-        <label for="attack-2-description">Attack description:</label>
+      <div class="attack_2_description">
+        <label for="attack_2_description">Attack description:</label>
         <input
           type="text"
-          id="attack-2-description"
-          name="attack-2-description"
+          id="attack_2_description"
+          name="attack_2_description"
         />
       </div>
-      <div class="damage-2">
-        <label for="damage-2">Damage:</label>
-        <input type="number" id="damage-2" name="damage-2" />
+      <div class="damage_2">
+        <label for="damage_2">Damage:</label>
+        <input type="number" id="damage_2" name="damage_2" />
       </div>
-      <div class="cost-2">
-        <label for="cost-2">Cost</label>
+      <div class="cost_2">
+        <label for="cost_2">Cost</label>
         <% types.forEach((t) => { %>
-        <input type="checkbox" id="cost-2" name="cost-2" />
-        <label for="cost-2"><%= t.type %></label>
+        <input type="checkbox" id="cost_2" name="cost_2" />
+        <label for="cost_2"><%= t.type %></label>
         <% }) %>
       </div>
       <div class="weakness">
@@ -92,11 +92,11 @@
         <label for="resistance"><%= t.type %></label>
         <% }) %>
       </div>
-      <div class="retreat-cost">
-        <label for="retreat-cost">retreat cost:</label>
+      <div class="retreat_cost">
+        <label for="retreat_cost">retreat cost:</label>
         <% types.forEach((t) => { %>
-        <input type="checkbox" id="retreat-cost" name="retreat-cost" />
-        <label for="retreat-cost"><%= t.type %></label>
+        <input type="checkbox" id="retreat_cost" name="retreat_cost" />
+        <label for="retreat_cost"><%= t.type %></label>
         <% }) %>
       </div>
       <input type="submit" value="Submit" />

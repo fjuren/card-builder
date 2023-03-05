@@ -45,7 +45,7 @@ const CardSchema = new Schema({
   description: {
     type: String,
     required: true,
-    minLength: 5,
+    minLength: 1,
     maxLength: 100,
   },
   attack_1: {

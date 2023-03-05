@@ -84,12 +84,9 @@ exports.card_create_get = (req, res, next) => {
 exports.card_create_post = [
   // validate and sanitze
   body('name', 'Your card needs a name').isLength({ min: 1 }).trim().escape(),
-  body('hp', 'Come on be realistic here')
-    .isLength({ max: 250 })
-    .trim()
-    .escape(),
+  body('hp', 'Come on, be realistic here').isInt({ max: 250 }).trim().escape(),
   body('type').escape(),
-  body('description').isLength({ min: 5, max: 100 }).trim().escape(),
+  body('description').isLength({ min: 1, max: 100 }).trim().escape(),
   body('attack_1').trim().escape(),
   body('attack_1_description').isLength({ max: 500 }).trim().escape(),
   body('damage_1').isInt({ max: 30 }).trim().escape(),
@@ -102,6 +99,7 @@ exports.card_create_post = [
   body('retreat_cost').escape(),
 
   (req, res, next) => {
+    console.log(req.body);
     // Find validation errors in this request & wraps them in an object
     const errors = validationResult(req);
     // if (!errors.isEmpty()) {
@@ -118,16 +116,20 @@ exports.card_create_post = [
       attack_1_description: req.body.attack_1_description,
       damage_1: req.body.damage_1,
       cost_1: req.body.cost_1,
-      attack2: req.body.attack2,
+      attack_2: req.body.attack_2,
       attack_2_description: req.body.attack_2_description,
       damage_2: req.body.damage_2,
       cost_2: req.body.cost_2,
       weakness: req.body.weakness,
       retreat_cost: req.body.retreat_cost,
+      created_date: new Date(),
     });
+    // console.log(card);
 
     // rendering form if there are errors with satnitized values & error messages
     if (!errors.isEmpty()) {
+      console.log(`ERRORS: ${errors}`);
+      console.log(errors);
       async.parallel(
         {
           types(cb) {
@@ -146,12 +148,12 @@ exports.card_create_post = [
           });
         }
       );
-      // return;
+      return;
     }
     // save it to the collection in db since data has passed validation
     card.save((err) => {
       if (err) {
-        // return next(err);
+        return next(err);
       }
       // if all successful, redirect back to the newly created card
       res.redirect(card.url);
