@@ -69,7 +69,6 @@ const CardSchema = new Schema({
   ],
   attack_2: {
     type: String,
-    required: true,
   },
   attack_2_description: {
     type: String,

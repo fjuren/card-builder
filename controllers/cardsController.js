@@ -75,6 +75,7 @@ exports.card_create_get = (req, res, next) => {
         title: 'Create a new card',
         error: err,
         types: result.types,
+        card: null,
       });
     }
   );
@@ -117,18 +118,25 @@ exports.card_create_post = [
   body('description').isLength({ min: 1, max: 100 }).trim().escape(),
   body('attack_1').trim().escape(),
   body('attack_1_description').isLength({ max: 500 }).trim().escape(),
-  body('damage_1').isInt({ max: 30 }).trim().escape(),
+  body('damage_1')
+    .optional({ checkFalsy: true })
+    .isInt({ max: 30 })
+    .trim()
+    .escape(),
   body('cost_1.*').escape(),
   body('attack_2').trim().escape(),
   body('attack_2_description').isLength({ max: 500 }).trim().escape(),
-  body('damage_2').isInt({ max: 30 }).trim().escape(),
+  body('damage_2')
+    .optional({ checkFalsy: true })
+    .isInt({ max: 30 })
+    .trim()
+    .escape(),
   body('cost_2.*').escape(),
   body('weakness.*').escape(),
   body('resistance.*').escape(),
   body('retreat_cost.*').escape(),
 
   (req, res, next) => {
-    console.log(req.body);
     // Find validation errors in this request & wraps them in an object
     const errors = validationResult(req);
     // if (!errors.isEmpty()) {
@@ -157,7 +165,6 @@ exports.card_create_post = [
 
     // rendering form if there are errors with satnitized values & error messages
     if (!errors.isEmpty()) {
-      console.log(`ERRORS: ${errors}`);
       console.log(errors);
       async.parallel(
         {
@@ -169,7 +176,7 @@ exports.card_create_post = [
           if (err) {
             return next(err);
           }
-          res.render('card_create', {
+          return res.render('card_create', {
             title: 'Create a new card',
             errors: errors.array(),
             types: result.types,
@@ -185,7 +192,7 @@ exports.card_create_post = [
         return next(err);
       }
       // if all successful, redirect back to the newly created card by its cards/uniqueID
-      res.redirect(card.card_url);
+      return res.redirect(card.card_url);
     });
   },
 ];

@@ -9,47 +9,97 @@
     <link rel="stylesheet" href="" />
   </head>
   <body>
-    <a href="/community-creations"> < back </a>
+    <a href="/cards"> < back </a>
     <h1><%= title %></h1>
     <form action="" method="post">
       <div class="name">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" />
+        <label for="name">Name: </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Bulbasaur"
+          value="<%= card===null ? '' : card.name %>"
+          required="true"
+          minlength="1"
+        />
       </div>
       <div class="hp">
-        <label for="hp">HP:</label>
-        <input type="number" id="hp" name="hp" />
+        <label for="hp">HP: </label>
+        <input
+          type="number"
+          id="hp"
+          name="hp"
+          placeholder="8"
+          value="<%= card===null ? '' : card.hp %>"
+          required="true"
+          min="1"
+          max="250"
+        />
       </div>
       <div class="type">
         <label for="type">Type: </label>
-        <select id="type" name="type">
+        <select
+          id="type"
+          name="type"
+          value="<%= card===null ? '' : card.type %>"
+          required="true"
+        >
           <% types.forEach((t) => { %>
           <option value="<%=t._id%>"><%= t.type %></option>
           <% }) %>
         </select>
       </div>
       <div class="description">
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" />
+        <label for="description">Description: </label>
+        <input
+          type="text"
+          id="description"
+          name="description"
+          placeholder="Eg. Likes to fly!"
+          value="<%= card===null ? '' : card.description %>"
+          required="true"
+          minlength="1"
+          maxlength="100"
+        />
       </div>
       <div class="attack_1">
-        <label for="attack_1">Attack:</label>
-        <input type="text" id="attack_1" name="attack_1" />
+        <label for="attack_1">Attack :</label>
+        <input
+          type="text"
+          id="attack_1"
+          name="attack_1"
+          placeholder="Thunder twirl"
+          value="<%= card===null ? '' : card.attack_1 %>"
+          required="true"
+        />
       </div>
       <div class="attack_1_description">
-        <label for="attack_1_description">Attack description:</label>
+        <label for="attack_1_description"
+          >Attack description (optional):
+        </label>
         <input
           type="text"
           id="attack_1_description"
           name="attack_1_description"
+          placeholder="A thunderous attack! Opponent is dazed and must miss a turn"
+          value="<%= card===null ? '' : card.attack_1_description %>"
+          maxlength="500"
         />
       </div>
       <div class="damage_1">
-        <label for="damage_1">Damage:</label>
-        <input type="number" id="damage_1" name="damage_1" />
+        <label for="damage_1">Damage (optional): </label>
+        <input
+          type="number"
+          id="damage_1"
+          name="damage_1"
+          placeholder="2"
+          value="<%= card===null ? '' : card.damage_1 %>"
+          max="30"
+        />
       </div>
       <div class="cost_1">
-        <label for="cost_1">Cost</label>
+        <label for="cost_1" required="true">Cost</label>
         <% types.forEach((t,i) => { %>
         <input
           type="checkbox"
@@ -61,23 +111,39 @@
         <% }) %>
       </div>
       <div class="attack_2">
-        <label for="attack_2">Attack:</label>
-        <input type="text" id="attack_2" name="attack_2" />
+        <label for="attack_2">Attack (optional): </label>
+        <input
+          type="text"
+          id="attack_2"
+          name="attack_2"
+          placeholder="Crater jump"
+          value="<%= card===null ? '' : card.attack_2 %>"
+        />
       </div>
       <div class="attack_2_description">
-        <label for="attack_2_description">Attack description:</label>
+        <label for="attack_2_description">Attack description (optional):</label>
         <input
           type="text"
           id="attack_2_description"
           name="attack_2_description"
+          placeholder="Bystanders are amazed by the crater size"
+          value="<%= card===null ? '' : card.attack_2_description %>"
+          maxlength="500"
         />
       </div>
       <div class="damage_2">
-        <label for="damage_2">Damage:</label>
-        <input type="number" id="damage_2" name="damage_2" />
+        <label for="damage_2">Damage (optional): </label>
+        <input
+          type="number"
+          id="damage_2"
+          name="damage_2"
+          placeholder="5"
+          value="<%= card===null ? '' : card.damage_2 %>"
+          max="30"
+        />
       </div>
       <div class="cost_2">
-        <label for="cost_2">Cost</label>
+        <label for="cost_2">Cost (optional): </label>
         <% types.forEach((t,i) => { %>
         <input
           type="checkbox"
@@ -89,7 +155,7 @@
         <% }) %>
       </div>
       <div class="weakness">
-        <label for="weakness">Weakness:</label>
+        <label for="weakness">Weakness (optional): </label>
         <% types.forEach((t,i) => { %>
         <input
           type="checkbox"
@@ -101,7 +167,7 @@
         <% }) %>
       </div>
       <div class="resistance">
-        <label for="resistance">Resistance:</label>
+        <label for="resistance">Resistance (optional): </label>
         <% types.forEach((t,i) => { %>
         <input
           type="checkbox"
@@ -113,7 +179,7 @@
         <% }) %>
       </div>
       <div class="retreat_cost">
-        <label for="retreat_cost">retreat cost:</label>
+        <label for="retreat_cost">retreat cost (optional): </label>
         <% types.forEach((t,i) => { %>
         <input
           type="checkbox"
