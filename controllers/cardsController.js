@@ -82,6 +82,34 @@ exports.card_create_get = (req, res, next) => {
 
 // Post card information to db
 exports.card_create_post = [
+  // convert type to an array for sanitization
+  (req, res, next) => {
+    // if req.body.type is not an array, make it an array. This will let us santize each index
+    if (!Array.isArray(req.body.cost_1)) {
+      req.body.cost_1 =
+        typeof req.body.cost_1 === 'undefined' ? [] : [req.body.cost_1];
+    }
+    if (!Array.isArray(req.body.cost_2)) {
+      req.body.cost_2 =
+        typeof req.body.cost_2 === 'undefined' ? [] : [req.body.cost_2];
+    }
+    if (!Array.isArray(req.body.weakness)) {
+      req.body.weakness =
+        typeof req.body.weakness === 'undefined' ? [] : [req.body.weakness];
+    }
+    if (!Array.isArray(req.body.resistance)) {
+      req.body.resistance =
+        typeof req.body.resistance === 'undefined' ? [] : [req.body.resistance];
+    }
+    if (!Array.isArray(req.body.retreat_cost)) {
+      req.body.retreat_cost =
+        typeof req.body.retreat_cost === 'undefined'
+          ? []
+          : [req.body.retreat_cost];
+    }
+    next();
+  },
+
   // validate and sanitze
   body('name', 'Your card needs a name').isLength({ min: 1 }).trim().escape(),
   body('hp', 'Come on, be realistic here').isInt({ max: 250 }).trim().escape(),
@@ -90,13 +118,14 @@ exports.card_create_post = [
   body('attack_1').trim().escape(),
   body('attack_1_description').isLength({ max: 500 }).trim().escape(),
   body('damage_1').isInt({ max: 30 }).trim().escape(),
-  body('cost_1').escape(),
+  body('cost_1.*').escape(),
   body('attack_2').trim().escape(),
   body('attack_2_description').isLength({ max: 500 }).trim().escape(),
   body('damage_2').isInt({ max: 30 }).trim().escape(),
-  body('cost_2').escape(),
-  body('weakness').escape(),
-  body('retreat_cost').escape(),
+  body('cost_2.*').escape(),
+  body('weakness.*').escape(),
+  body('resistance.*').escape(),
+  body('retreat_cost.*').escape(),
 
   (req, res, next) => {
     console.log(req.body);
@@ -121,10 +150,10 @@ exports.card_create_post = [
       damage_2: req.body.damage_2,
       cost_2: req.body.cost_2,
       weakness: req.body.weakness,
+      resistance: req.body.resistance,
       retreat_cost: req.body.retreat_cost,
       created_date: new Date(),
     });
-    // console.log(card);
 
     // rendering form if there are errors with satnitized values & error messages
     if (!errors.isEmpty()) {
@@ -138,7 +167,7 @@ exports.card_create_post = [
         },
         (err, result) => {
           if (err) {
-            // return next(err);
+            return next(err);
           }
           res.render('card_create', {
             title: 'Create a new card',
@@ -155,7 +184,7 @@ exports.card_create_post = [
       if (err) {
         return next(err);
       }
-      // if all successful, redirect back to the newly created card
+      // if all successful, redirect back to the newly created card by its cards/uniqueID
       res.redirect(card.url);
     });
   },

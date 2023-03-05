@@ -22,9 +22,9 @@
       </div>
       <div class="type">
         <label for="type">Type: </label>
-        <select name="type" id="type" name="type">
+        <select id="type" name="type">
           <% types.forEach((t) => { %>
-          <option value="<%= t.type %>"><%= t.type %></option>
+          <option value="<%=t._id%>"><%= t.type %></option>
           <% }) %>
         </select>
       </div>
@@ -50,9 +50,14 @@
       </div>
       <div class="cost_1">
         <label for="cost_1">Cost</label>
-        <% types.forEach((t) => { %>
-        <input type="checkbox" id="cost_1" name="cost_1" />
-        <label for="cost_1"><%= t.type %></label>
+        <% types.forEach((t,i) => { %>
+        <input
+          type="checkbox"
+          id="<%=t._id%>"
+          name="cost_1"
+          value="<%=t._id%>"
+        />
+        <label for="<%=t._id%>"><%= t.type %></label>
         <% }) %>
       </div>
       <div class="attack_2">
@@ -73,30 +78,50 @@
       </div>
       <div class="cost_2">
         <label for="cost_2">Cost</label>
-        <% types.forEach((t) => { %>
-        <input type="checkbox" id="cost_2" name="cost_2" />
-        <label for="cost_2"><%= t.type %></label>
+        <% types.forEach((t,i) => { %>
+        <input
+          type="checkbox"
+          id="<%=t._id%>"
+          name="cost_2"
+          value="<%=t._id%>"
+        />
+        <label for="<%=t._id%>"><%= t.type %></label>
         <% }) %>
       </div>
       <div class="weakness">
         <label for="weakness">Weakness:</label>
-        <% types.forEach((t) => { %>
-        <input type="checkbox" id="weakness" name="weakness" />
-        <label for="weakness"><%= t.type %></label>
+        <% types.forEach((t,i) => { %>
+        <input
+          type="checkbox"
+          id="<%=t._id%>"
+          name="weakness"
+          value="<%=t._id%>"
+        />
+        <label for="<%=t._id%>"><%= t.type %></label>
         <% }) %>
       </div>
       <div class="resistance">
         <label for="resistance">Resistance:</label>
-        <% types.forEach((t) => { %>
-        <input type="checkbox" id="resistance" name="resistance" />
-        <label for="resistance"><%= t.type %></label>
+        <% types.forEach((t,i) => { %>
+        <input
+          type="checkbox"
+          id="<%=t._id%>"
+          name="resistance"
+          value="<%=t._id%>"
+        />
+        <label for="<%=t._id%>"><%= t.type %></label>
         <% }) %>
       </div>
       <div class="retreat_cost">
         <label for="retreat_cost">retreat cost:</label>
-        <% types.forEach((t) => { %>
-        <input type="checkbox" id="retreat_cost" name="retreat_cost" />
-        <label for="retreat_cost"><%= t.type %></label>
+        <% types.forEach((t,i) => { %>
+        <input
+          type="checkbox"
+          id="<%=t._id%>"
+          name="retreat_cost"
+          value="<%=t._id%>"
+        />
+        <label for="<%=t._id%>"><%= t.type %></label>
         <% }) %>
       </div>
       <input type="submit" value="Submit" />
