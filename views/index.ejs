@@ -14,11 +14,11 @@
     <p>Sorry there was an error. Please try again later</p>
     <% } %>
     <h1><%= title %></h1>
-    <a class="button" href="/community-creations/create-card">Create card</a>
+    <a class="button" href="/cards/create-card">Create card</a>
     <p>Number of cards created: <%= cardCount %></p>
     <div id="all-cards">
       <% allCardData.forEach((c) => { %>
-      <a href="<%= c.url %>">
+      <a href="<%= c.cards_url %>">
         <div
           class="card-container"
           style="border-color: black; border-width: 5px; border: solid"

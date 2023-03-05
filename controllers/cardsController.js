@@ -28,7 +28,7 @@ exports.index = (req, res) => {
     (err, result) => {
       // console.log(`RESULTS: ${result.allCardData}`);
       res.render('index', {
-        title: 'Community Creations',
+        title: 'Community Card Creations',
         error: err,
         cardCount: result.cardCount,
         allCardData: result.allCardData,
@@ -185,7 +185,7 @@ exports.card_create_post = [
         return next(err);
       }
       // if all successful, redirect back to the newly created card by its cards/uniqueID
-      res.redirect(card.url);
+      res.redirect(card.card_url);
     });
   },
 ];

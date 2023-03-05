@@ -23,7 +23,7 @@ main().catch((err) => console.log(err));
 // });
 
 const indexRouter = require('./routes/index');
-const communitycreationsRouter = require('./routes/communityCreations');
+const cardsRouter = require('./routes/cards');
 const usersRouter = require('./routes/users');
 
 const app = express();
@@ -39,7 +39,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/community-creations', communitycreationsRouter);
+app.use('/cards', cardsRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
