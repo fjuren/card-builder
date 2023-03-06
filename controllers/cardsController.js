@@ -71,7 +71,7 @@ exports.card_create_get = (req, res, next) => {
       },
     },
     (err, result) => {
-      res.render('card_create', {
+      res.render('card_form', {
         title: 'Create a new card',
         error: err,
         types: result.types,
@@ -176,7 +176,7 @@ exports.card_create_post = [
           if (err) {
             return next(err);
           }
-          return res.render('card_create', {
+          return res.render('card_form', {
             title: 'Create a new card',
             errors: errors.array(),
             types: result.types,
@@ -196,3 +196,8 @@ exports.card_create_post = [
     });
   },
 ];
+
+// GET the edit form for a card
+exports.card_edit_get = (req, res, next) => {
+  console.log(Cards.findById(req.params.id));
+};

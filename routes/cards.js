@@ -20,7 +20,9 @@ router.post('/create-card', cardsController.card_create_post);
 // POST request for deleting a card
 
 // GET request for editing a card
+router.get('/card/:id/edit', cardsController.card_edit_get);
 
 // POST request for editing a card
+// router.get('/card/:id/edit', cardsController.card_edit_post);
 
 module.exports = router;
