@@ -199,5 +199,29 @@ exports.card_create_post = [
 
 // GET the edit form for a card
 exports.card_edit_get = (req, res, next) => {
-  console.log(Cards.findById(req.params.id));
+  async.parallel(
+    {
+      selectedCard(cb) {
+        Cards.findById(req.params.id)
+          .populate('type')
+          .populate('cost_1')
+          .populate('cost_2')
+          .populate('weakness')
+          .populate('resistance')
+          .populate('retreat_cost')
+          .exec(cb);
+      },
+      types(cb) {
+        Types.find({}, cb);
+      },
+    },
+    (err, result) => {
+      res.render('card_form', {
+        title: 'Edit the card',
+        error: err,
+        types: result.types,
+        card: result.selectedCard,
+      });
+    }
+  );
 };
