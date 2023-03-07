@@ -216,6 +216,7 @@ exports.card_edit_get = (req, res, next) => {
       },
     },
     (err, result) => {
+      console.log(result.selectedCard.cost_1);
       res.render('card_form', {
         title: 'Edit the card',
         error: err,
