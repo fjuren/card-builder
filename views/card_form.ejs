@@ -100,13 +100,9 @@
       </div>
       <div class="cost_1">
         <label for="cost_1" required="true">Cost</label>
-        <% types.forEach((t,i) => { %>
-        <input
-          type="checkbox"
-          id="<%=t._id%>"
-          name="cost_1"
-          value="<%=t._id%>"
-        />
+        <% types.forEach((t,i) => { %> <input type="checkbox" id="<%=t._id%>"
+        name="cost_1" value="<%=t._id%>" <%= cost_1_checked_type.includes(t._id)
+        ? "checked" : "" %> />
         <label><%= t.type %></label>
         <% }) %>
       </div>
@@ -144,49 +140,33 @@
       </div>
       <div class="cost_2">
         <label for="cost_2">Cost (optional): </label>
-        <% types.forEach((t,i) => { %>
-        <input
-          type="checkbox"
-          id="<%=t._id%>"
-          name="cost_2"
-          value="<%=t._id%>"
-        />
+        <% types.forEach((t,i) => { %> <input type="checkbox" id="<%=t._id%>"
+        name="cost_2" value="<%=t._id%>" <%= cost_2_checked_type.includes(t._id)
+        ? "checked" : "" %> />
         <label><%= t.type %></label>
         <% }) %>
       </div>
       <div class="weakness">
         <label for="weakness">Weakness (optional): </label>
-        <% types.forEach((t,i) => { %>
-        <input
-          type="checkbox"
-          id="<%=t._id%>"
-          name="weakness"
-          value="<%=t._id%>"
-        />
+        <% types.forEach((t,i) => { %> <input type="checkbox" id="<%=t._id%>"
+        name="weakness" value="<%=t._id%>" <%=
+        weakness_checked_type.includes(t._id) ? "checked" : "" %> />
         <label><%= t.type %></label>
         <% }) %>
       </div>
       <div class="resistance">
         <label for="resistance">Resistance (optional): </label>
-        <% types.forEach((t,i) => { %>
-        <input
-          type="checkbox"
-          id="<%=t._id%>"
-          name="resistance"
-          value="<%=t._id%>"
-        />
+        <% types.forEach((t,i) => { %> <input type="checkbox" id="<%=t._id%>"
+        name="resistance" value="<%=t._id%>" <%=
+        resistance_checked_type.includes(t._id) ? "checked" : "" %> />
         <label><%= t.type %></label>
         <% }) %>
       </div>
       <div class="retreat_cost">
         <label for="retreat_cost">Retreat cost (optional): </label>
-        <% types.forEach((t,i) => { %>
-        <input
-          type="checkbox"
-          id="<%=t._id%>"
-          name="retreat_cost"
-          value="<%=t._id%>"
-        />
+        <% types.forEach((t,i) => { %> <input type="checkbox" id="<%=t._id%>"
+        name="retreat_cost" value="<%=t._id%>" <%=
+        retreat_cost_type.includes(t._id) ? "checked" : "" %> />
         <label><%= t.type %></label>
         <% }) %>
       </div>

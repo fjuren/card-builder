@@ -1,6 +1,7 @@
 const async = require('async');
 const { body, validationResult } = require('express-validator');
 const Cards = require('../models/cards');
+const types = require('../models/types');
 const Types = require('../models/types');
 
 // Display the Community Creation homepage. Contains:
@@ -216,12 +217,82 @@ exports.card_edit_get = (req, res, next) => {
       },
     },
     (err, result) => {
-      console.log(result.selectedCard.cost_1);
+      const checkedCost_1_Types = [];
+      const checkedCost_2_Types = [];
+      const weakness_Types = [];
+      const resistance_Types = [];
+      const retreat_cost_Types = [];
+      // find the types that are checked and pass them to EJS view to have the checkboxes pre-checked
+      // note: the arrays in this nested for-loop are pretty short. Should be pretty quick
+      for (let c = 0; c < result.selectedCard.cost_1.length; c++) {
+        for (let t = 0; t < result.types.length; t++) {
+          if (
+            result.selectedCard.cost_1[c]._id.toString() ===
+            result.types[t]._id.toString()
+          ) {
+            checkedCost_1_Types.push(result.types[t]._id);
+          }
+        }
+      }
+
+      // Identify types selected for cost_2
+      for (let c = 0; c < result.selectedCard.cost_2.length; c++) {
+        for (let t = 0; t < result.types.length; t++) {
+          if (
+            result.selectedCard.cost_2[c]._id.toString() ===
+            result.types[t]._id.toString()
+          ) {
+            checkedCost_2_Types.push(result.types[t]._id);
+          }
+        }
+      }
+
+      // Identify types selected for weakness
+      for (let c = 0; c < result.selectedCard.weakness.length; c++) {
+        for (let t = 0; t < result.types.length; t++) {
+          if (
+            result.selectedCard.weakness[c]._id.toString() ===
+            result.types[t]._id.toString()
+          ) {
+            weakness_Types.push(result.types[t]._id);
+          }
+        }
+      }
+
+      // Identify types selected for resistance
+      for (let c = 0; c < result.selectedCard.resistance.length; c++) {
+        for (let t = 0; t < result.types.length; t++) {
+          if (
+            result.selectedCard.resistance[c]._id.toString() ===
+            result.types[t]._id.toString()
+          ) {
+            resistance_Types.push(result.types[t]._id);
+          }
+        }
+      }
+
+      // Identify types selected for retreat_cost
+      for (let c = 0; c < result.selectedCard.retreat_cost.length; c++) {
+        for (let t = 0; t < result.types.length; t++) {
+          if (
+            result.selectedCard.retreat_cost[c]._id.toString() ===
+            result.types[t]._id.toString()
+          ) {
+            retreat_cost_Types.push(result.types[t]._id);
+          }
+        }
+      }
+
       res.render('card_form', {
         title: 'Edit the card',
         error: err,
         types: result.types,
         card: result.selectedCard,
+        cost_1_checked_type: checkedCost_1_Types,
+        cost_2_checked_type: checkedCost_2_Types,
+        weakness_checked_type: weakness_Types,
+        resistance_checked_type: resistance_Types,
+        retreat_cost_type: retreat_cost_Types,
       });
     }
   );
