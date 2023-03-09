@@ -77,6 +77,12 @@ exports.card_create_get = (req, res, next) => {
         error: err,
         types: result.types,
         card: null,
+        // these fields allow me to re-use the card_form for editing the card
+        cost_1_checked_type: [],
+        cost_2_checked_type: [],
+        weakness_checked_type: [],
+        resistance_checked_type: [],
+        retreat_cost_type: [],
       });
     }
   );
@@ -177,6 +183,7 @@ exports.card_create_post = [
           if (err) {
             return next(err);
           }
+
           return res.render('card_form', {
             title: 'Create a new card',
             errors: errors.array(),
