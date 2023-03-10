@@ -289,7 +289,7 @@ exports.card_edit_get = (req, res, next) => {
           }
         }
       }
-
+      console.log(result.selectedCard);
       res.render('card_form', {
         title: 'Edit the card',
         error: err,

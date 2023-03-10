@@ -46,7 +46,9 @@
           required="true"
         >
           <% types.forEach((t) => { %>
-          <option value="<%=t._id%>"><%= t.type %></option>
+          <option value="<%=t._id%>" 
+            <%= card.type.type===t.type ? 'selected' : '' %>
+            ><%= t.type %></option>
           <% }) %>
         </select>
       </div>
