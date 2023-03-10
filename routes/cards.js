@@ -23,6 +23,6 @@ router.post('/create-card', cardsController.card_create_post);
 router.get('/card/:id/edit', cardsController.card_edit_get);
 
 // POST request for editing a card
-// router.get('/card/:id/edit', cardsController.card_edit_post);
+router.post('/card/:id/edit', cardsController.card_edit_post);
 
 module.exports = router;
