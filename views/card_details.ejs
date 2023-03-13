@@ -12,6 +12,12 @@
     <a href="/cards"> < back </a>
     <h1><%= title %></h1>
     <a class="button" href="<%= cardDetails._id%>/edit">Edit</a>
+    <div>
+      <form action="" method="post">
+        <input type="hidden" name="card" value="<%= cardDetails._id %>" />
+        <button id="delete-card" type="submit">Delete</button>
+      </form>
+    </div>
     <div
       class="card-container"
       style="border-color: black; border-width: 5px; border: solid"

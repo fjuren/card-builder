@@ -422,3 +422,15 @@ exports.card_edit_post = [
     });
   },
 ];
+
+// delete the card
+exports.card_delete_post = (req, res, next) => {
+  // .card refers to the card's id, defined in the index ejs view
+  Cards.findByIdAndDelete(req.body.card, (err) => {
+    if (err) {
+      return next(err);
+    }
+    // success - delete the card
+    return res.redirect('/cards');
+  });
+};

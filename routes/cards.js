@@ -18,6 +18,7 @@ router.post('/create-card', cardsController.card_create_post);
 // GET request for deleteing a card
 
 // POST request for deleting a card
+router.post('/card/:id', cardsController.card_delete_post);
 
 // GET request for editing a card
 router.get('/card/:id/edit', cardsController.card_edit_get);
