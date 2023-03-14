@@ -41,7 +41,11 @@ const CardSchema = new Schema({
     ref: 'Types',
     required: true,
   },
-  // image: { data: Buffer, contentType: String, required: true }, // TODO update this part near the end of the build to learn images
+  image: {
+    type: Buffer,
+    // contentType: String,
+    // required: true,
+  },
   description: {
     type: String,
     required: true,

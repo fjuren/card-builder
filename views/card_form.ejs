@@ -11,7 +11,7 @@
   <body>
     <a href="/cards"> < back </a>
     <h1><%= title %></h1>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
       <div class="name">
         <label for="name">Name: </label>
         <input
@@ -42,15 +42,26 @@
         <select
           id="type"
           name="type"
-          value="<%= card===null ? '' : card.type %>"
+          value="<%= card===null ? '' : card.image %>"
           required="true"
         >
           <% types.forEach((t) => { %>
           <option value="<%=t._id%>" 
-            <%= card.type.type===t.type ? 'selected' : '' %>
-            ><%= t.type %></option>
+            <%= card!=null && card.type.type===t.type ? 'selected' : '' %> ><%= t.type %>
+          </option>
           <% }) %>
         </select>
+      </div>
+      <div class="img">
+        <label for="img">Image: </label>
+        <input
+          id="img"
+          type="file"
+          name="uploaded_card_file"
+          value="<%= card===null ? '' : card.type %>"
+          required="true"
+        >
+        </input>
       </div>
       <div class="description">
         <label for="description">Description: </label>
