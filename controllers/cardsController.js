@@ -30,7 +30,6 @@ exports.index = (req, res) => {
       // },
     },
     (err, result) => {
-      console.log(result.allCardData[4].image);
       // console.log(`RESULTS: ${result.allCardData}`);
       res
         // .type(result.allCardData.image.contentType)
