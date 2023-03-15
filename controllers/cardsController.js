@@ -1,11 +1,11 @@
 const async = require('async');
 const { body, validationResult } = require('express-validator');
-const multer = require('multer');
 const Cards = require('../models/cards');
 const types = require('../models/types');
 const Types = require('../models/types');
 
-const upload = multer({ dest: 'uploads/' });
+// const multer = require('multer');
+// fs = require('fs');
 
 // Display the Community Creation homepage. Contains:
 // Total count of cards, all the cards and their data,
@@ -30,13 +30,17 @@ exports.index = (req, res) => {
       // },
     },
     (err, result) => {
+      console.log(result.allCardData[4].image);
       // console.log(`RESULTS: ${result.allCardData}`);
-      res.render('index', {
-        title: 'Community Card Creations',
-        error: err,
-        cardCount: result.cardCount,
-        allCardData: result.allCardData,
-      });
+      res
+        // .type(result.allCardData.image.contentType)
+        // .send(data.allCardData.image.type)
+        .render('index', {
+          title: 'Community Card Creations',
+          error: err,
+          cardCount: result.cardCount,
+          allCardData: result.allCardData,
+        });
     }
   );
 };
@@ -126,7 +130,7 @@ exports.card_create_post = [
   body('hp', 'Come on, be realistic here').isInt({ max: 250 }).trim().escape(),
   body('type').escape(),
   body('description').isLength({ min: 1, max: 100 }).trim().escape(),
-  body('image'),
+  // body('image'),
   body('attack_1').trim().escape(),
   body('attack_1_description').isLength({ max: 500 }).trim().escape(),
   body('damage_1')
@@ -148,7 +152,22 @@ exports.card_create_post = [
   body('retreat_cost.*').escape(),
 
   (req, res, next) => {
-    console.log(req.file);
+    // var img = fs.readFileSync(req.file.path);
+    // var encode_img = img.toString('base64');
+    // var final_img = {
+    //   contentType: req.file.mimetype,
+    //   image: new Buffer.from(encode_img, 'base64'),
+    // };
+    // Cards.create(final_img,function(err,result){
+    //     if(err){
+    //         console.log(err);
+    //     }else{
+    //         console.log(result.img.Buffer);
+    //         console.log("Saved To database");
+    //         res.contentType(final_img.contentType);
+    //         res.send(final_img.image);
+    //     }
+    // })
     // Find validation errors in this request & wraps them in an object
     const errors = validationResult(req);
     // if (!errors.isEmpty()) {
@@ -162,7 +181,7 @@ exports.card_create_post = [
       type: req.body.type,
       description: req.body.description,
       // image: req.body.uploaded_card_file,
-      image: req.file.buffer,
+      // image: final_img.image,
       attack_1: req.body.attack_1,
       attack_1_description: req.body.attack_1_description,
       damage_1: req.body.damage_1,
@@ -181,7 +200,7 @@ exports.card_create_post = [
 
     // rendering form if there are errors with satnitized values & error messages
     if (!errors.isEmpty()) {
-      console.log(req);
+      // console.log(req);
       async.parallel(
         {
           types(cb) {

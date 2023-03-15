@@ -1,11 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const cardsController = require('../controllers/cardsController');
-const multer = require('multer');
-// const upload = multer({ dest: 'uploads/' });
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+// const upload = multer({ dest: './assets/pic_upload/' });
+
+// const multer = require('multer');
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './assets/pic_upload/');
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.fieldname + '-' + Date.now());
+//   },
+// });
+// const upload = multer({ storage: storage });
+// Guide: https://codedec.com/tutorials/image-uploading-to-mongodb-in-nodejs/
+
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage: storage });
 
 // GET Homepage (Community Creations page)
 router.get('/', cardsController.index);
@@ -19,7 +31,7 @@ router.get('/create-card', cardsController.card_create_get);
 // POST request for creatign a new card (with uploaded file to db)
 router.post(
   '/create-card',
-  upload.single('uploaded_card_file'),
+  // upload.single('uploaded_card_file'),
   cardsController.card_create_post
 );
 

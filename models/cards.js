@@ -41,11 +41,11 @@ const CardSchema = new Schema({
     ref: 'Types',
     required: true,
   },
-  image: {
-    type: Buffer,
-    // contentType: String,
-    // required: true,
-  },
+  // image: {
+  //   data: Buffer,
+  //   contentType: String,
+  //   // required: true,
+  // },
   description: {
     type: String,
     required: true,
