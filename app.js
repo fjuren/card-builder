@@ -25,7 +25,6 @@ main().catch((err) => console.log(err));
 const indexRouter = require('./routes/index');
 const cardsRouter = require('./routes/cards');
 const usersRouter = require('./routes/users');
-const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -42,7 +41,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/cards', cardsRouter);
 app.use('/users', usersRouter);
-app.use('/login', authRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
