@@ -2,7 +2,6 @@
 // _ID
 // CARD_ID
 // Username
-// Email
 // Password
 // Account_Created_Date
 
@@ -15,8 +14,6 @@ const UserSchema = new Schema({
   card_id: [{ type: Schema.Types.ObjectId, ref: 'Cards' }],
   username: { type: String, required: true },
   firstname: { type: String, required: true },
-  lastname: { type: String, required: true },
-  email: { type: String, required: true },
   password: { type: String, required: true },
   membershipstatus: { type: Boolean },
   account_created_date: { type: Date, required: true },
