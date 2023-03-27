@@ -4,9 +4,12 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+// Auth
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+
+const User = require('./models/users');
 
 require('dotenv').config();
 
@@ -18,14 +21,6 @@ async function main() {
   await mongoose.connect(mongoDBConnection);
 }
 main().catch((err) => console.log(err));
-// const { MongoClient, ServerApiVersion } = require('mongodb');
-// const mongoDBConnection = process.env.mongoURL
-// const client = new MongoClient(mongoDBConnection, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
 
 const indexRouter = require('./routes/index');
 const cardsRouter = require('./routes/cards');
@@ -43,15 +38,52 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/cards', cardsRouter);
-app.use('/users', usersRouter);
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await User.findOne({ username: username });
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username' });
+      }
+      if (user.password !== password) {
+        return done(null, false, { message: 'Incorrect password' });
+      }
+      return done(null, user);
+    } catch (err) {
+      return done(err);
+    }
+  })
+);
 
+// creates user cookie after logged in
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+// decodes the user's cookie
+passport.deserializeUser(async function (id, done) {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
+
+// passport middleware
 app.use(
-  session({ secret: 'all-cats', resave: false, saveUninitialized: true })
+  session({
+    secret: process.env.Session_Secret,
+    resave: false,
+    saveUninitialized: true,
+  })
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.urlencoded({ extended: false }));
+
+app.use('/', indexRouter);
+app.use('/cards', cardsRouter);
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

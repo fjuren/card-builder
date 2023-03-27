@@ -31,15 +31,13 @@ exports.index = (req, res) => {
     },
     (err, result) => {
       // console.log(`RESULTS: ${result.allCardData}`);
-      res
-        // .type(result.allCardData.image.contentType)
-        // .send(data.allCardData.image.type)
-        .render('index', {
-          title: 'Community Card Creations',
-          error: err,
-          cardCount: result.cardCount,
-          allCardData: result.allCardData,
-        });
+      console.log(req.user);
+      res.render('index', {
+        title: 'Community Card Creations',
+        error: err,
+        cardCount: result.cardCount,
+        allCardData: result.allCardData,
+      });
     }
   );
 };
