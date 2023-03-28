@@ -81,6 +81,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
+// short middleware - let's me check if user is signed in anywhere in the app
+const loggedInUser = (req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+};
+app.use(loggedInUser);
+
 app.use('/', indexRouter);
 app.use('/cards', cardsRouter);
 app.use('/users', usersRouter);

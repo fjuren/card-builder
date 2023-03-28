@@ -31,12 +31,13 @@ exports.index = (req, res) => {
     },
     (err, result) => {
       // console.log(`RESULTS: ${result.allCardData}`);
-      console.log(req.user);
+      console.log('controller areas: ' + req.user);
       res.render('index', {
         title: 'Community Card Creations',
         error: err,
         cardCount: result.cardCount,
         allCardData: result.allCardData,
+        user: req.user,
       });
     }
   );
