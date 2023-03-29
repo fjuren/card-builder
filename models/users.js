@@ -16,6 +16,7 @@ const UserSchema = new Schema({
   firstname: { type: String, required: true },
   password: { type: String, required: true },
   membershipstatus: { type: Boolean },
+  isAdmin: { type: Boolean },
   account_created_date: { type: Date, required: true },
 });
 

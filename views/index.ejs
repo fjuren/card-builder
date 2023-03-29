@@ -7,7 +7,10 @@
     <% } %>
     <!-- display username if user is logged in -->
     <div>
-        <p><%= user ? user.firstname : null %></p>
+      <% if (user) { %>
+        <p><%= user.firstname %></p>
+        <a href="/log-out">Log out</a>
+      <% } else {null}%> 
     </div>
     <h1><%= title %></h1>
     <a class="button" href="/cards/create-card">Create card</a>

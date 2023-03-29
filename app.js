@@ -88,6 +88,16 @@ const loggedInUser = (req, res, next) => {
 };
 app.use(loggedInUser);
 
+// logs user out using passport middleware
+app.get('/log-out', (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
+});
+
 app.use('/', indexRouter);
 app.use('/cards', cardsRouter);
 app.use('/users', usersRouter);

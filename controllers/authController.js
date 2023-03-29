@@ -24,6 +24,7 @@ exports.signup_post = async (req, res, next) => {
       username: req.body.username,
       password: req.body.password,
       membershipstatus: true,
+      isAdmin: false,
       account_created_date: new Date(),
     });
     const result = await user.save();

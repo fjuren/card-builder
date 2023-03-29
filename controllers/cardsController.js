@@ -31,7 +31,6 @@ exports.index = (req, res) => {
     },
     (err, result) => {
       // console.log(`RESULTS: ${result.allCardData}`);
-      console.log('controller areas: ' + req.user);
       res.render('index', {
         title: 'Community Card Creations',
         error: err,
