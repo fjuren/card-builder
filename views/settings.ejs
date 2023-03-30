@@ -1,0 +1,27 @@
+<%- include("partials/header") -%>
+
+<body>
+  <a href="/cards"> < back </a>
+  <h1><%= title %></h1>
+  <h2>Profile information:</h2>
+  <h4>Username:</h4>
+  <p><%= username %></p>
+  <h4>First name:</h4>
+  <p><%= firstname %></p>
+  <h4>Membership status:</h4>
+  <p><%= membershipstatus %></p>
+  <h4>Admin status:</h4>
+  <p><%= isAdmin %></p>
+  <form action="" method="POST">
+    <div>
+      <label for="membership">Enter the secret code to become a member:</label>
+      <input name="membership" type="text" id="membership" value="" />
+    </div>
+    <div>
+      <label for="admin">Enter the secret code to become to hold a site admin role:</label>
+      <input name="admin" type="text" id="admin" value="" />
+    </div>
+    <div>
+      <button>Submit</button>
+    </div>
+</body>

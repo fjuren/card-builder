@@ -20,4 +20,7 @@ router.get('/signup', authController.signup_get);
 // post request to send sign up info to backend
 router.post('/signup', authController.signup_post);
 
+// get request of the settings page
+router.get('/settings', authController.settings_get);
+
 module.exports = router;

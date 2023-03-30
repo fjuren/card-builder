@@ -74,3 +74,14 @@ exports.signup_post = [
     });
   },
 ];
+
+exports.settings_get = (req, res, next) => {
+  console.log(req.user);
+  res.render('settings', {
+    title: 'Settings',
+    username: req.user.username,
+    firstname: req.user.firstname,
+    membershipstatus: req.user.membershipstatus,
+    isAdmin: req.user.isAdmin,
+  });
+};
