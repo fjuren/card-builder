@@ -2,6 +2,7 @@ const async = require('async');
 const { body, validationResult } = require('express-validator');
 const Users = require('../models/users');
 const passport = require('passport');
+const bcrypt = require('bcryptjs/dist/bcrypt');
 
 exports.login_get = (req, res, next) => {
   res.render('login');
@@ -38,16 +39,6 @@ exports.signup_post = [
   async (req, res, next) => {
     const errors = validationResult(req);
 
-    // try {
-    const user = new Users({
-      firstname: req.body.fname,
-      username: req.body.username,
-      password: req.body.password,
-      membershipstatus: false,
-      isAdmin: false,
-      account_created_date: new Date(),
-    });
-
     if (!errors.isEmpty()) {
       console.log(errors);
       res.render('signup', {
@@ -58,14 +49,28 @@ exports.signup_post = [
       });
       return;
     }
-    const result = await user.save();
-    // res.redirect('/');
 
-    req.login(user, function (err) {
+    bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
       if (err) {
+        console.log(err);
         return next(err);
       }
-      res.redirect('/');
+      const user = new Users({
+        firstname: req.body.fname,
+        username: req.body.username,
+        password: hashedPassword,
+        membershipstatus: false,
+        isAdmin: false,
+        account_created_date: new Date(),
+      });
+      const result = await user.save();
+
+      req.login(user, function (err) {
+        if (err) {
+          return next(err);
+        }
+        res.redirect('/');
+      });
     });
   },
 ];
