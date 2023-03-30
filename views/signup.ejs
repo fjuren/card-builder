@@ -9,19 +9,39 @@
       <form action="" method="POST">
         <div>
           <label for="fname">First name:</label>
-          <input name="fname" id="fname" value="" type="text" />
+          <input
+            name="fname"
+            id="fname"
+            value="<%= firstname === null ? '' : firstname %>"
+            type="text"
+          />
         </div>
         <div>
           <label for="username">Username:</label>
-          <input name="username" id="username" value="" type="text" />
+          <input
+            name="username"
+            id="username"
+            value="<%= username === null ? '' : username %>"
+            type="text"
+          />
         </div>
         <div>
           <label for="password">Password:</label>
-          <input name="password" id="password" value="" type="password" />
+          <input
+            name="password"
+            id="password"
+            value="<%= password === null ? '' : password %>"
+            type="password"
+          />
         </div>
         <div>
           <label for="password2">Re-enter password:</label>
-          <input name="password2" id="password2" value="" type="password" />
+          <input
+            name="password2"
+            id="password2"
+            value="<%= password2 === null ? '' : password2 %>"
+            type="password"
+          />
         </div>
         <div>
           <button>Sign up</button>

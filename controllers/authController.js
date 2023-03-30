@@ -14,22 +14,58 @@ exports.login_post = passport.authenticate('local', {
 });
 
 exports.signup_get = (req, res, next) => {
-  res.render('signup');
+  res.render('signup', {
+    firstname: null,
+    username: null,
+    password: null,
+    password2: null,
+  });
 };
 
-exports.signup_post = async (req, res, next) => {
-  try {
+exports.signup_post = [
+  body('fname', 'First name must not be empty')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('username', 'Username must not be empty')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('password', 'Password must not be fewer than 5 characters')
+    .trim()
+    .isLength({ min: 5 })
+    .escape(),
+  async (req, res, next) => {
+    const errors = validationResult(req);
+
+    // try {
     const user = new Users({
       firstname: req.body.fname,
       username: req.body.username,
       password: req.body.password,
-      membershipstatus: true,
+      membershipstatus: false,
       isAdmin: false,
       account_created_date: new Date(),
     });
+
+    if (!errors.isEmpty()) {
+      console.log(errors);
+      res.render('signup', {
+        firstname: req.body.fname,
+        username: req.body.username,
+        password: req.body.password,
+        password2: req.body.password2,
+      });
+      return;
+    }
     const result = await user.save();
-    res.redirect('/');
-  } catch (err) {
-    return next(err);
-  }
-};
+    // res.redirect('/');
+
+    req.login(user, function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect('/');
+    });
+  },
+];
