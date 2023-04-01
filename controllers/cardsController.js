@@ -30,7 +30,7 @@ exports.index = (req, res) => {
       // },
     },
     (err, result) => {
-      // console.log(`RESULTS: ${result.allCardData}`);
+      console.log(`RESULTS: ${result.allCardData}`);
       res.render('index', {
         title: 'Community Card Creations',
         error: err,

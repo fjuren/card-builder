@@ -96,13 +96,6 @@ exports.settings_post = [
   body('membership').trim().escape(),
   body('admin').trim().escape(),
   async (req, res, next) => {
-    console.log('admin password is: ' + passwords.adminpw);
-    console.log('user ID: ' + req.user._id);
-    console.log('member type: ' + typeof req.body.membership);
-    console.log('member value: ' + req.body.membership);
-    console.log('memberpw type: ' + typeof passwords.memberpw);
-    console.log('member password: ' + passwords.memberpw);
-
     const errors = validationResult(req);
     console.log('Errors: ' + errors);
 
@@ -119,7 +112,6 @@ exports.settings_post = [
       return;
     }
     if (req.body.membership === passwords.memberpw) {
-      console.log('member pw matches');
       Users.findByIdAndUpdate(
         req.user._id,
         {

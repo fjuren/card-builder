@@ -24,7 +24,15 @@
             class="card-container"
             style="border-color: black; border-width: 5px; border: solid"
           >
-            <div clas="name">
+          <% if (user && user.isAdmin === true) {%>
+            <div>
+              <form action="" method="post">
+                <input type="hidden" name="card" value="<%= c._id %>" />
+                <button id="delete-card" type="submit">Delete</button>
+              </form>
+            </div>
+            <% } else {null} %>
+            <div class="name">
               <h4><%= c.name %></h4>
             </div>
             <div class="hp">
