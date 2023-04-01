@@ -23,4 +23,7 @@ router.post('/signup', authController.signup_post);
 // get request of the settings page
 router.get('/settings', authController.settings_get);
 
+// post request of the settings page
+router.post('/settings', authController.settings_post);
+
 module.exports = router;

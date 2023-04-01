@@ -12,14 +12,14 @@
   <p><%= membershipstatus %></p>
   <h4>Admin status:</h4>
   <p><%= isAdmin %></p>
-  <form action="" method="POST">
+  <form action="" method="post">
     <div>
       <label for="membership">Enter the secret code to become a member:</label>
-      <input name="membership" type="text" id="membership" value="" />
+      <input name="membership" type="password" id="membership" value="<%= membershipfield === null ? '' : membershipfield %>" />
     </div>
     <div>
       <label for="admin">Enter the secret code to become to hold a site admin role:</label>
-      <input name="admin" type="text" id="admin" value="" />
+      <input name="admin" type="password" id="admin" value="<%= adminfield === null ? '' : adminfield %>" />
     </div>
     <div>
       <button>Submit</button>

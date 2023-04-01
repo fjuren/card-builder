@@ -76,12 +76,88 @@ exports.signup_post = [
 ];
 
 exports.settings_get = (req, res, next) => {
-  console.log(req.user);
   res.render('settings', {
     title: 'Settings',
     username: req.user.username,
     firstname: req.user.firstname,
     membershipstatus: req.user.membershipstatus,
     isAdmin: req.user.isAdmin,
+    membershipfield: null,
+    adminfield: null,
   });
 };
+
+const passwords = {
+  memberpw: process.env.memberPassword,
+  adminpw: process.env.adminPassword,
+};
+
+exports.settings_post = [
+  body('membership').trim().escape(),
+  body('admin').trim().escape(),
+  async (req, res, next) => {
+    console.log('admin password is: ' + passwords.adminpw);
+    console.log('user ID: ' + req.user._id);
+    console.log('member type: ' + typeof req.body.membership);
+    console.log('member value: ' + req.body.membership);
+    console.log('memberpw type: ' + typeof passwords.memberpw);
+    console.log('member password: ' + passwords.memberpw);
+
+    const errors = validationResult(req);
+    console.log('Errors: ' + errors);
+
+    if (!errors.isEmpty()) {
+      res.render('settings', {
+        title: 'Settings',
+        username: req.user.username,
+        firstname: req.user.firstname,
+        membershipstatus: req.user.membershipstatus,
+        isAdmin: req.user.isAdmin,
+        membershipfield: req.body.membership,
+        adminfield: req.body.admin,
+      });
+      return;
+    }
+    if (req.body.membership === passwords.memberpw) {
+      console.log('member pw matches');
+      Users.findByIdAndUpdate(
+        req.user._id,
+        {
+          membershipstatus: true,
+        },
+        (err, docs) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('Updated User membership status to: ' + docs);
+          }
+        }
+      );
+    }
+    if (req.body.admin === passwords.adminpw) {
+      Users.findByIdAndUpdate(
+        req.user._id,
+        {
+          isAdmin: true,
+        },
+        (err, docs) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('Updated User Admin status to: ' + docs);
+          }
+        }
+      );
+    }
+    res.redirect('/settings');
+    res.render('settings', {
+      title: 'Settings',
+      username: req.user.username,
+      firstname: req.user.firstname,
+      membershipstatus: req.user.membershipstatus,
+      isAdmin: req.user.isAdmin,
+      membershipfield: req.body.membership,
+      adminfield: req.body.admin,
+    });
+  },
+];
