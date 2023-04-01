@@ -14,7 +14,10 @@
       <% } else {null}%> 
     </div>
     <h1><%= title %></h1>
+    <p>Sign up and join our awesome community of members to start creating new cards!</p>
+    <% if (user && user.isAdmin === true || user && user.membershipstatus === true) {%>
     <a class="button" href="/cards/create-card">Create card</a>
+    <% } else {null} %>
     <p>Number of cards created: <%= cardCount %></p>
     <div id="all-cards">
       <% allCardData.forEach((c) => { %>

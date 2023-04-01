@@ -62,6 +62,7 @@ exports.card_details = (req, res, next) => {
         title: `${result.cardDetails.name} Card`,
         error: err,
         cardDetails: result.cardDetails,
+        user: req.user,
       });
     }
   );
