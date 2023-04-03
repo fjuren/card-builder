@@ -23,7 +23,7 @@ const { Schema } = mongoose;
 
 const CardSchema = new Schema({
   // _ID
-  // user_id: { type: Schema.Types.ObjectID, ref: 'Users' },
+  user_id: { type: Schema.Types.ObjectID, ref: 'Users' },
   name: {
     type: String,
     required: [true, 'Your card needs a name'],

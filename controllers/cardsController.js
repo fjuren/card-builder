@@ -3,6 +3,7 @@ const { body, validationResult } = require('express-validator');
 const Cards = require('../models/cards');
 const types = require('../models/types');
 const Types = require('../models/types');
+const Users = require('../models/users');
 
 // const multer = require('multer');
 // fs = require('fs');
@@ -174,6 +175,7 @@ exports.card_create_post = [
 
     // add valiated & sanitized data to the schema
     const card = new Cards({
+      user_id: req.user,
       name: req.body.name,
       hp: req.body.hp,
       type: req.body.type,
@@ -193,8 +195,6 @@ exports.card_create_post = [
       retreat_cost: req.body.retreat_cost,
       created_date: new Date(),
     });
-
-    console.log(card);
 
     // rendering form if there are errors with satnitized values & error messages
     if (!errors.isEmpty()) {
@@ -220,11 +220,26 @@ exports.card_create_post = [
       );
       return;
     }
+
     // save it to the collection in db since data has passed validation
     card.save((err) => {
       if (err) {
         return next(err);
       }
+
+      // if card is saved successfully, add the card ID to the user who created it
+      Users.findByIdAndUpdate(
+        req.user._id,
+        { $push: { card_id: card._id } },
+        (err, docs) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('Updated User membership status to: ' + docs);
+          }
+        }
+      );
+
       // if all successful, redirect back to the newly created card by its cards/uniqueID
       return res.redirect(card.card_url);
     });
