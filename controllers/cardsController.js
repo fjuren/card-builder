@@ -31,7 +31,6 @@ exports.index = (req, res) => {
       // },
     },
     (err, result) => {
-      console.log(`RESULTS: ${result.allCardData}`);
       res.render('index', {
         title: 'Community Card Creations',
         error: err,
@@ -330,7 +329,6 @@ exports.card_edit_get = (req, res, next) => {
           }
         }
       }
-      console.log(result.selectedCard);
       res.render('card_form', {
         title: 'Edit the card',
         error: err,
@@ -341,6 +339,7 @@ exports.card_edit_get = (req, res, next) => {
         weakness_checked_type: weakness_Types,
         resistance_checked_type: resistance_Types,
         retreat_cost_type: retreat_cost_Types,
+        user: req.user,
       });
     }
   );

@@ -15,15 +15,24 @@
     <div>
       <!-- Nav Bar -->
       <nav>
-        <div class="sign-up">
-            <a href="/signup">
-                Sign up
-            </a>
-        </div>
-        <div class="login">
-            <a href="/login">
-                Login
-            </a>
+            <!-- display username if user is logged in -->
+        <div>
+          <% if (user) { %>
+            <p><%= user.firstname %></p>
+            <a href="/log-out">Log out</a>
+            <a href="/settings">Settings</a>
+          <% } else { %>
+            <div class="sign-up">
+              <a href="/signup">
+                  Sign up
+              </a>
+          </div>
+          <div class="login">
+              <a href="/login">
+                  Login
+              </a>
+          </div>
+          <% } %> 
         </div>
         <!-- <div class="navbar-dropdown">
         

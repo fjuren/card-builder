@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title><%= title %></title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="" />
-  </head>
+<%- include("partials/header", {user: user}) -%>
+
   <body>
     <a href="/cards"> < back </a>
     <h1><%= title %></h1>
     <!-- change membershipstatus === true to checking if the user who created the card is the same who is logged in. Only admin roles or user card creators should be able to edit/delete cards -->
-    <% if (user && user.isAdmin === true || user.membershipstatus === true) {%>
+    <% if (user && user.isAdmin === true) {%>
     <a class="button" href="<%= cardDetails._id%>/edit">Edit</a>
     <div>
       <form action="" method="post">

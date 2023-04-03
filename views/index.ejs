@@ -1,18 +1,10 @@
-<%- include("partials/header") -%>
+<%- include("partials/header", {user: user}) -%>
 
   <body>
     <% if (error) { %>
     <h1><%= title %></h1>
     <p>Sorry there was an error. Please try again later</p>
     <% } %>
-    <!-- display username if user is logged in -->
-    <div>
-      <% if (user) { %>
-        <p><%= user.firstname %></p>
-        <a href="/log-out">Log out</a>
-        <a href="/settings">Settings</a>
-      <% } else {null}%> 
-    </div>
     <h1><%= title %></h1>
     <p>Sign up and join our awesome community of members to start creating new cards!</p>
     <% if (user && user.isAdmin === true || user && user.membershipstatus === true) {%>

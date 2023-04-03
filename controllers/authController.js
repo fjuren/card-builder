@@ -78,12 +78,13 @@ exports.signup_post = [
 exports.settings_get = (req, res, next) => {
   res.render('settings', {
     title: 'Settings',
-    username: req.user.username,
-    firstname: req.user.firstname,
-    membershipstatus: req.user.membershipstatus,
-    isAdmin: req.user.isAdmin,
+    // username: req.user.username,
+    // firstname: req.user.firstname,
+    // membershipstatus: req.user.membershipstatus,
+    // isAdmin: req.user.isAdmin,
     membershipfield: null,
     adminfield: null,
+    user: req.user,
   });
 };
 
@@ -102,12 +103,9 @@ exports.settings_post = [
     if (!errors.isEmpty()) {
       res.render('settings', {
         title: 'Settings',
-        username: req.user.username,
-        firstname: req.user.firstname,
-        membershipstatus: req.user.membershipstatus,
-        isAdmin: req.user.isAdmin,
         membershipfield: req.body.membership,
         adminfield: req.body.admin,
+        user: req.user,
       });
       return;
     }
@@ -141,15 +139,10 @@ exports.settings_post = [
         }
       );
     }
-    res.redirect('/settings');
     res.render('settings', {
-      title: 'Settings',
-      username: req.user.username,
-      firstname: req.user.firstname,
-      membershipstatus: req.user.membershipstatus,
-      isAdmin: req.user.isAdmin,
       membershipfield: req.body.membership,
       adminfield: req.body.admin,
+      user: req.user,
     });
   },
 ];

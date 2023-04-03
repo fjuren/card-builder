@@ -1,17 +1,17 @@
-<%- include("partials/header") -%>
+<%- include("partials/header", {user: user}) -%>
 
 <body>
   <a href="/cards"> < back </a>
   <h1><%= title %></h1>
   <h2>Profile information:</h2>
   <h4>Username:</h4>
-  <p><%= username %></p>
+  <p><%= user.username %></p>
   <h4>First name:</h4>
-  <p><%= firstname %></p>
+  <p><%= user.firstname %></p>
   <h4>Membership status:</h4>
-  <p><%= membershipstatus %></p>
+  <p><%= user.membershipstatus %></p>
   <h4>Admin status:</h4>
-  <p><%= isAdmin %></p>
+  <p><%= user.isAdmin %></p>
   <form action="" method="post">
     <div>
       <label for="membership">Enter the secret code to become a member:</label>
