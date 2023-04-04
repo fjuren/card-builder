@@ -1,12 +1,16 @@
 const express = require('express');
 
 const router = express.Router();
+const myCardsController = require('../controllers/myCardsController');
 const authController = require('../controllers/authController');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
   res.redirect('/cards');
 });
+
+// GET My cards page (this page shows cards created by the signed in user with membership status)
+router.get('/mycards', myCardsController.my_cards_get);
 
 // get request to view the login page
 router.get('/login', authController.login_get);

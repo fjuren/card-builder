@@ -18,19 +18,30 @@
             <!-- display username if user is logged in -->
         <div>
           <% if (user) { %>
-            <p><%= user.firstname %></p>
-            <a href="/log-out">Log out</a>
-            <a href="/settings">Settings</a>
+            <div class="home">
+              <a href="/cards">Home</a>
+            </div>
+            <div class="home">
+              <a href="/mycards">My cards</a>
+            </div>
+            <div>
+              <p><%= user.firstname %></p>
+            </div>
+            <div>
+              <a href="/log-out">Log out</a>
+            </div>
+            <div>
+              <a href="/settings">Settings</a>
+            </div>
           <% } else { %>
-            <div class="sign-up">
-              <a href="/signup">
-                  Sign up
-              </a>
+          <div class="home">
+            <a href="/cards">Home</a>
+          </div>
+          <div class="sign-up">
+              <a href="/signup">Sign up</a>
           </div>
           <div class="login">
-              <a href="/login">
-                  Login
-              </a>
+              <a href="/login">Login</a>
           </div>
           <% } %> 
         </div>
