@@ -116,4 +116,8 @@ CardSchema.virtual('card_url').get(function () {
   return `card/${this._id}`;
 });
 
+CardSchema.virtual('my_card_url').get(function () {
+  return `mycards/card/${this._id}`;
+});
+
 module.exports = mongoose.model('Cards', CardSchema);
