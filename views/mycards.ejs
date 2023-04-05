@@ -7,6 +7,11 @@
     <% } %>
     <h1><%= title %></h1>
     <p>Number of cards created: <%= cardCount %></p>
+    <% if (user.membershipstatus === false) { %>
+      <p>It looks like you don't have a membership yet. Sign up in your settings to start creating cards today!</p>
+    <% } else { %>
+        <a class="button" href="/cards/create-card">Create card</a>
+    <% } %>
     <div id="all-cards">
       <% memberCards.forEach((c) => { %>
       <div>

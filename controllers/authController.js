@@ -140,6 +140,7 @@ exports.settings_post = [
       );
     }
     res.render('settings', {
+      title: 'Settings',
       membershipfield: req.body.membership,
       adminfield: req.body.admin,
       user: req.user,

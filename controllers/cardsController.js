@@ -88,6 +88,7 @@ exports.card_create_get = (req, res, next) => {
         weakness_checked_type: [],
         resistance_checked_type: [],
         retreat_cost_type: [],
+        user: req.user,
       });
     }
   );
