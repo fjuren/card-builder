@@ -18,7 +18,7 @@ module.exports.isMember = (req, res, next) => {
   if (req.user.membershipstatus === true) {
     next();
   } else {
-    res.status(401).json({
+    res.status(403).json({
       msg: 'Sorry, you must log in and sign up to be a member to access this page',
     });
   }
@@ -28,6 +28,6 @@ module.exports.isAdmin = (req, res, next) => {
   if (req.user.isAdmin === true) {
     next();
   } else {
-    res.status(401).json({ msg: 'Sorry, you must be an admin to do this' });
+    res.status(403).json({ msg: 'Sorry, you must be an admin to do this' });
   }
 };
