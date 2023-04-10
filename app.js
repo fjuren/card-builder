@@ -45,6 +45,8 @@ passport.use(
     try {
       const user = await User.findOne({ username: username });
       if (!user) {
+        // could return the below 400 error & json instead
+        // return res.status(400).json({ error: 'User already exists' })
         return done(null, false, {
           message: "Incorrect username or username doesn't exist",
         });
@@ -120,10 +122,12 @@ app.get('/log-out', (req, res, next) => {
 const indexRouter = require('./routes/index');
 const cardsRouter = require('./routes/cards');
 const usersRouter = require('./routes/users');
+const commentsRouter = require('./routes/comments');
 
 app.use('/', indexRouter);
 app.use('/cards', cardsRouter);
 app.use('/users', usersRouter);
+app.use('/cards/card/:id/comments', commentsRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -16,6 +16,7 @@
 // Resistance
 // Retreat cost
 // Created_Date
+// Comments
 
 const mongoose = require('mongoose');
 
@@ -105,6 +106,7 @@ const CardSchema = new Schema({
     type: Date,
     required: true,
   },
+  comments: { type: Array, default: [] },
 });
 
 // virtual
