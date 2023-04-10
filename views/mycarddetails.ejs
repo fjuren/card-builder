@@ -1,9 +1,8 @@
 <%- include("partials/header", {user: user}) -%>
 
   <body>
-    <a href="/mycards"> < back </a>
+    <a href="/mycards"> < Back to my cards </a>
     <h1><%= title %></h1>
-    <!-- change membershipstatus === true to checking if the user who created the card is the same who is logged in. Only admin roles or user card creators should be able to edit/delete cards -->
     <% if (user && user.isAdmin === true || user && user.membershipstatus === true) {%>
     <a class="button" href="<%= cardDetails._id%>/edit">Edit</a>
     <div>
