@@ -1,19 +1,19 @@
 const createError = require('http-errors');
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
-// Auth
-const session = require('express-session');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo');
 
 const User = require('./models/users');
 
 require('dotenv').config();
 
-const mongoose = require('mongoose');
+const app = express();
+
+// ----------------- MONGO SETUP ----------------------
 
 mongoose.set('strictQuery', false);
 const mongoDBConnection = process.env.mongoURL;
@@ -22,12 +22,7 @@ async function main() {
 }
 main().catch((err) => console.log(err));
 
-const indexRouter = require('./routes/index');
-const cardsRouter = require('./routes/cards');
-const usersRouter = require('./routes/users');
-const bcrypt = require('bcryptjs/dist/bcrypt');
-
-const app = express();
+// ----------------- EJS SETUP ----------------------
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,12 +34,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ----------------- PASSPORT ----------------------
+// Auth
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcryptjs/dist/bcrypt');
+
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
       const user = await User.findOne({ username: username });
       if (!user) {
-        return done(null, false, { message: 'Incorrect username' });
+        return done(null, false, {
+          message: "Incorrect username or username doesn't exist",
+        });
       }
       bcrypt.compare(password, user.password, (err, res) => {
         if (res) {
@@ -77,14 +80,20 @@ passport.deserializeUser(async function (id, done) {
   }
 });
 
+// ----------------- SESSION ----------------------
 // passport middleware
 app.use(
   session({
     secret: process.env.Session_Secret,
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.mongoURL,
+      collectionName: 'sessions',
+    }),
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
@@ -106,6 +115,12 @@ app.get('/log-out', (req, res, next) => {
   });
 });
 
+// ----------------- ROUTES ----------------------
+
+const indexRouter = require('./routes/index');
+const cardsRouter = require('./routes/cards');
+const usersRouter = require('./routes/users');
+
 app.use('/', indexRouter);
 app.use('/cards', cardsRouter);
 app.use('/users', usersRouter);
@@ -114,6 +129,8 @@ app.use('/users', usersRouter);
 app.use((req, res, next) => {
   next(createError(404));
 });
+
+// ----------------- SERVER ----------------------
 
 // error handler
 app.use((err, req, res) => {
