@@ -65,19 +65,9 @@ router.get('/signup', authController.signup_get);
 router.post('/signup', authController.signup_post);
 
 // get request of the settings page
-router.get(
-  '/settings',
-  isAuth,
-  isMember || isAdmin,
-  authController.settings_get
-);
+router.get('/settings', isAuth, authController.settings_get);
 
 // post request of the settings page
-router.post(
-  '/settings',
-  isAuth,
-  isMember || isAdmin,
-  authController.settings_post
-);
+router.post('/settings', isAuth, authController.settings_post);
 
 module.exports = router;

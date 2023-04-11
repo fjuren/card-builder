@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const isAuth = require('../routes/isAuth').isAuth;
 const isMember = require('../routes/isAuth').isMember;
 const isAdmin = require('../routes/isAuth').isAdmin;
