@@ -128,6 +128,7 @@ app.use('/', indexRouter);
 app.use('/cards', cardsRouter);
 app.use('/users', usersRouter);
 app.use('/cards/card/:id/comments', commentsRouter);
+// app.use('/comments', commentsRouter);
 // app.use('/mycards/card/:id/comments', commentsRouter);
 
 // catch 404 and forward to error handler

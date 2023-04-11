@@ -24,6 +24,7 @@ exports.index = (req, res) => {
           .populate('weakness')
           .populate('resistance')
           .populate('retreat_cost')
+          .populate('comments')
           .exec(cb);
       },
       // types(cb) {
@@ -31,6 +32,7 @@ exports.index = (req, res) => {
       // },
     },
     (err, result) => {
+      // res.json(result.allCardData); // Use this to send just raw json API
       res.render('index', {
         title: 'Community Card Creations',
         error: err,
