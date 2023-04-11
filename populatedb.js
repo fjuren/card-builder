@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const Users = require('./models/users');
 const Cards = require('./models/cards');
 const Types = require('./models/types');
+const Comments = require('./models/comments');
 
 mongoose.set('strictQuery', false);
 
@@ -21,21 +22,26 @@ main().catch((err) => console.log(err));
 const users = [];
 const types = [];
 const cards = [];
+const comments = [];
 
 // function to create users
 function userCreate(
   card_id,
   username,
-  email,
+  firstname,
   password,
+  membershipstatus,
+  isAdmin,
   account_created_date,
   cb
 ) {
   const userDetail = {
     card_id,
     username,
-    email,
+    firstname,
     password,
+    membershipstatus,
+    isAdmin,
     account_created_date,
   };
   const user = new Users(userDetail);
@@ -68,6 +74,26 @@ function typeCreate(typeName, cb) {
   });
 }
 
+// function to create comments for cards
+function commentCreate(user_id, body, comment_date, cb) {
+  const commentDetail = {
+    user_id,
+    body,
+    comment_date,
+  };
+  const comment = new Comments(commentDetail);
+
+  comment.save((err) => {
+    if (err) {
+      cb(err, null);
+      return;
+    }
+    console.log(`New comment: ${comment}`);
+    comments.push(comment);
+    cb(null, comment);
+  });
+}
+
 // function to create cards
 function cardCreate(
   name,
@@ -87,6 +113,7 @@ function cardCreate(
   resistance,
   retreat_cost,
   created_date,
+  comments,
   cb
 ) {
   const cardDetail = {
@@ -99,6 +126,7 @@ function cardCreate(
     cost_1,
     attack_2,
     created_date,
+    comments,
   };
   // handle fields that aren't required
   if (attack_1_description !== false) {
@@ -114,7 +142,7 @@ function cardCreate(
     cardDetail.attack_2_description = attack_2_description;
   }
   if (cost_2 !== false) {
-    cardDetail.cost2 = cost_2;
+    cardDetail.cost_2 = cost_2;
   }
   if (weakness !== false) {
     cardDetail.weakness = weakness;
@@ -200,6 +228,59 @@ function createData(cb) {
       function (callback) {
         typeCreate('Energy', callback);
       },
+      function (callback) {
+        userCreate(
+          [cards[3], cards[1]], // card_id
+          'Admin&Member', // username,
+          'John', // firstname
+          'AdminMember!', // password
+          true, // membershipstatus
+          true, // isAdmin
+          new Date(), // account_created_date
+          callback
+        );
+      },
+      function (callback) {
+        userCreate(
+          [cards[0]], // card_id
+          'Member', // username,
+          'Sally', // firstname
+          'Member!', // password
+          true, // membershipstatus
+          false, // isAdmin
+          new Date(), // account_created_date
+          callback
+        );
+      },
+      function (callback) {
+        userCreate(
+          [cards[2]], // card_id
+          'JSdude', // username,
+          'Todd', // firstname
+          'random!', // password
+          false, // membershipstatus
+          false, // isAdmin
+          new Date(), // account_created_date
+          callback
+        );
+      },
+      // Add fake comments
+      function (callback) {
+        commentCreate(
+          users[0], // user_id
+          'Cool card!', // comment
+          new Date(), // comment_date
+          callback
+        );
+      },
+      function (callback) {
+        commentCreate(
+          users[1],
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+          new Date(),
+          callback
+        );
+      },
       //  ADD FAKE CARD DATA
       function (callback) {
         cardCreate(
@@ -220,6 +301,7 @@ function createData(cb) {
           [types[0], types[1]], // resistance
           [types[0]], // retreat cost
           new Date(), // created date
+          [], //comments
           callback
         );
       },
@@ -242,6 +324,7 @@ function createData(cb) {
           [types[4]], // resistance
           [types[18], types[18]], // retreat cost
           new Date(), // created date
+          [comments[0], comments[1]], //comments
           callback
         );
       },
@@ -264,6 +347,7 @@ function createData(cb) {
           [], // resistance
           [types[18]], // retreat cost
           new Date(), // created date
+          [comments[0], comments[1]], //comments
           callback
         );
       },
@@ -286,36 +370,7 @@ function createData(cb) {
           [types[2]], // resistance
           [types[18]], // retreat cost
           new Date(), // created date
-          callback
-        );
-      },
-      function (callback) {
-        userCreate(
-          [cards[3], cards[1]], // card_id
-          'user1', // username,
-          'user1@gmail.com', // email
-          'user1!', // password
-          new Date(), // account_created_date
-          callback
-        );
-      },
-      function (callback) {
-        userCreate(
-          [cards[0]], // card_id
-          'user2', // username,
-          'user2@gmail.com', // email
-          'user2!', // password
-          new Date(), // account_created_date
-          callback
-        );
-      },
-      function (callback) {
-        userCreate(
-          [cards[2]], // card_id
-          'user3', // username,
-          'user3@gmail.com', // email
-          'user3!', // password
-          new Date(), // account_created_date
+          [comments[0], comments[1]], //comments
           callback
         );
       },
@@ -323,6 +378,31 @@ function createData(cb) {
     cb
   );
 }
+
+// function createComments(cb) {
+//   async.series(
+//     [
+//       // Add fake comments
+//       function (callback) {
+//         commentCreate(
+//           user[0], // user_id
+//           'Cool card!', // comment
+//           new Date(), // comment_date
+//           callback
+//         );
+//       },
+//       function (callback) {
+//         commentCreate(
+//           user[1],
+//           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+//           new Date(),
+//           callback
+//         );
+//       },
+//     ],
+//     cb
+//   );
+// }
 
 async.series([createData], (err) => {
   if (err) {

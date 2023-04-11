@@ -106,7 +106,13 @@ const CardSchema = new Schema({
     type: Date,
     required: true,
   },
-  comments: { type: Array, default: [] },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Comments',
+      default: [],
+    },
+  ],
 });
 
 // virtual

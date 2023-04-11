@@ -6,7 +6,8 @@ const Cards = require('../models/cards');
 
 // gets all the comments for a card per its card id
 exports.all_card_comments_get = (req, res, next) => {
-  console.log('get comments');
+  res.json({ comment: 'hello!' });
+  next();
 };
 
 // post a comment to the card per its card id
