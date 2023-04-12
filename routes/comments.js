@@ -11,6 +11,6 @@ const authController = require('../controllers/authController');
 router.get('/', commentsController.all_card_comments_get);
 
 // POST request for adding a comment to a single card
-router.post('/', commentsController.all_card_comments_post);
+router.post('/create', commentsController.all_card_comments_post);
 
 module.exports = router;
