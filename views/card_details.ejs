@@ -81,5 +81,12 @@
         <p><%= cardDetails.description %></p>
       </div>
     </div>
+    <div id="comments">
+      <% comments.forEach((comment) => { %>
+        <div class="comment">
+          <%= comment.body %>
+        </div>
+      <% }) %>
+    </div>
   </body>
 </html>
