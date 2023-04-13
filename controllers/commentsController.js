@@ -5,7 +5,7 @@ const Comments = require('../models/comments');
 const Cards = require('../models/cards');
 
 // gets all the comments for a card per its card id
-exports.all_card_comments_get = (req, res) => {
+exports.comments_get = (req, res) => {
   Cards.findById(req.params.id)
     // sort comments by date in descending order
     .populate({ path: 'comments', options: { sort: { comment_date: -1 } } })
@@ -18,7 +18,7 @@ exports.all_card_comments_get = (req, res) => {
 };
 
 // post a comment to the card per its card id
-exports.all_card_comments_post = [
+exports.comments_post = [
   // sanitize & validate
   body('body', 'Your comment is too short')
     .isLength({ min: 2, max: 4000 })
@@ -32,9 +32,9 @@ exports.all_card_comments_post = [
     if (!errors.isEmpty()) return res.json(errors);
 
     // second body is the name of the field
-    console.log(req.body.body);
     const user_id = req.user._id;
     const body = req.body.body;
+    const cardID = req.body.cardId;
 
     Comments.create(
       {
@@ -44,8 +44,13 @@ exports.all_card_comments_post = [
       },
       (err, comment) => {
         if (err) return res.json(err);
-
-        return res.json(comment);
+        Cards.findByIdAndUpdate(
+          cardID,
+          { $push: { comments: comment } },
+          function (err, updatedCard) {
+            if (err) return res.json();
+          }
+        );
       }
     );
   },

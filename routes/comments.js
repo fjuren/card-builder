@@ -8,9 +8,9 @@ const commentsController = require('../controllers/commentsController');
 const authController = require('../controllers/authController');
 
 // GET request all the comments for a single card
-router.get('/', commentsController.all_card_comments_get);
+router.get('/', commentsController.comments_get);
 
 // POST request for adding a comment to a single card
-router.post('/create', commentsController.all_card_comments_post);
+router.post('/create', commentsController.comments_post);
 
 module.exports = router;
