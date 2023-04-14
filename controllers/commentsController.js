@@ -8,10 +8,29 @@ const Cards = require('../models/cards');
 exports.comments_get = (req, res) => {
   Cards.findById(req.params.id)
     // sort comments by date in descending order
-    .populate({ path: 'comments', options: { sort: { comment_date: -1 } } })
+    .populate({
+      path: 'comments',
+      options: { sort: { comment_date: -1 } },
+      populate: {
+        path: 'user_id',
+      },
+    })
     .exec((err, data) => {
       if (err) return res.json(err);
-      // extrack only the comments from the matched card
+      // extract only the comments from the matched card
+
+      // convert date format. Eg format Apr 13, 2023, 7:20 p.m.
+      for (let c = 0; c < data.comments.length; c++) {
+        data.comments[c].comment_date.toLocaleString('default', {
+          dateStyle: 'medium',
+          timeStyle: 'short',
+        });
+        // data.comments[c]['comment_date'] = newDate;
+        // console.log(data.comments[c]['comment_date']);
+        // data.comments[c].comment_date = newDate;
+      }
+      console.log(data.comments);
+
       const comments = data.comments;
       return res.json(comments);
     });
@@ -40,7 +59,7 @@ exports.comments_post = [
       {
         user_id,
         body,
-        comment_date: Date.now(),
+        comment_date: new Date(),
       },
       (err, comment) => {
         if (err) return res.json(err);

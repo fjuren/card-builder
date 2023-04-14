@@ -63,6 +63,7 @@ exports.card_details = (req, res, next) => {
       cardComments(cb) {
         const urlHost = req.get('host');
         const cardID = req.params.id;
+
         try {
           // call comments API for comments based on card ID. See commentsController.js for logic
           axios
