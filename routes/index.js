@@ -3,9 +3,6 @@ const isAuth = require('../routes/isAuth').isAuth;
 const isMember = require('../routes/isAuth').isMember;
 const isAdmin = require('../routes/isAuth').isAdmin;
 
-// token validations
-const verifyToken = require('../config/verifyToken');
-
 const router = express.Router();
 const myCardsController = require('../controllers/myCardsController');
 const authController = require('../controllers/authController');
@@ -18,8 +15,7 @@ router.get('/', (req, res, next) => {
 // GET My cards page (this page shows cards created by the signed in user with membership status)
 router.get(
   '/mycards',
-  // isAuth,
-  verifyToken,
+  isAuth,
   isMember || isAdmin,
   myCardsController.my_cards_get
 );

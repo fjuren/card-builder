@@ -4,43 +4,37 @@ const Cards = require('../models/cards');
 const types = require('../models/types');
 const Types = require('../models/types');
 const Users = require('../models/users');
-const jwt = require('jsonwebtoken');
 
 exports.my_cards_get = (req, res, next) => {
-  jwt.verify(req.token, 'secret', (err, authData) => {
-    if (err) return res.status(400).json(err);
-    req.authData = authData;
-    next();
-  }),
-    async.parallel(
-      {
-        cardCount(cb) {
-          Cards.countDocuments({ user_id: req.user._id }, cb);
-        },
-        memberCards(cb) {
-          Cards.find({ user_id: req.user._id })
-            .populate('type')
-            .populate('cost_1')
-            .populate('cost_2')
-            .populate('weakness')
-            .populate('resistance')
-            .populate('retreat_cost')
-            .exec(cb);
-        },
-        // types(cb) {
-        //   Types.find(cb);
-        // },
+  async.parallel(
+    {
+      cardCount(cb) {
+        Cards.countDocuments({ user_id: req.user._id }, cb);
       },
-      (err, result) => {
-        res.render('mycards', {
-          title: 'My cards',
-          error: err,
-          cardCount: result.cardCount,
-          memberCards: result.memberCards,
-          user: req.user,
-        });
-      }
-    );
+      memberCards(cb) {
+        Cards.find({ user_id: req.user._id })
+          .populate('type')
+          .populate('cost_1')
+          .populate('cost_2')
+          .populate('weakness')
+          .populate('resistance')
+          .populate('retreat_cost')
+          .exec(cb);
+      },
+      // types(cb) {
+      //   Types.find(cb);
+      // },
+    },
+    (err, result) => {
+      res.render('mycards', {
+        title: 'My cards',
+        error: err,
+        cardCount: result.cardCount,
+        memberCards: result.memberCards,
+        user: req.user,
+      });
+    }
+  );
 };
 
 exports.my_card_details_get = (req, res, next) => {
