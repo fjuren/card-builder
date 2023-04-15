@@ -3,16 +3,42 @@ const { body, validationResult } = require('express-validator');
 const Users = require('../models/users');
 const passport = require('passport');
 const bcrypt = require('bcryptjs/dist/bcrypt');
+const jwt = require('jsonwebtoken');
 
 exports.login_get = (req, res, next) => {
   res.render('login');
 };
 
 // passport.authenticate() will review username/password info and run Passport's LocalStrategy. It will also create a session cookie to store in the user's browser
-exports.login_post = passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-});
+// // WITH SESSION
+// exports.login_post = passport.authenticate('local', {
+//   successRedirect: '/',
+//   failureRedirect: '/login',
+// });
+
+exports.login_post = function (req, res) {
+  passport.authenticate('local', { session: false }, (err, user) => {
+    if (err || !user) {
+      return res.status(401).json({
+        message: 'Incorrect Username or Password',
+        user,
+      });
+    }
+
+    jwt.sign(
+      { _id: user._id, username: user.username },
+      'secret',
+      { expiresIn: '10m' },
+      (err, token) => {
+        if (err) return res.status(400).json(err);
+        res.json({
+          token: token,
+          user: { _id: user._id, username: user.username },
+        });
+      }
+    );
+  })(req, res);
+};
 
 exports.signup_get = (req, res, next) => {
   res.render('signup', {
