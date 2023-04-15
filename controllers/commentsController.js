@@ -29,7 +29,6 @@ exports.comments_get = (req, res) => {
         // console.log(data.comments[c]['comment_date']);
         // data.comments[c].comment_date = newDate;
       }
-      console.log(data.comments);
 
       const comments = data.comments;
       return res.json(comments);

@@ -1,4 +1,5 @@
 const async = require('async');
+const axios = require('axios');
 const { body, validationResult } = require('express-validator');
 const Cards = require('../models/cards');
 const types = require('../models/types');
@@ -50,6 +51,21 @@ exports.my_card_details_get = (req, res, next) => {
           .populate('retreat_cost')
           .exec(cb);
       },
+      cardComments(cb) {
+        const urlHost = req.get('host');
+        const cardID = req.params.id;
+
+        try {
+          // call comments API for comments based on card ID. See commentsController.js for logic
+          axios
+            .get(`http://${urlHost}/cards/card/${cardID}/comments`)
+            .then((response) => {
+              cb(null, response.data);
+            });
+        } catch (err) {
+          console.log(err);
+        }
+      },
     },
     (err, result) => {
       res.render('mycarddetails', {
@@ -57,6 +73,7 @@ exports.my_card_details_get = (req, res, next) => {
         error: err,
         cardDetails: result.cardDetails,
         user: req.user,
+        comments: result.cardComments,
       });
     }
   );
