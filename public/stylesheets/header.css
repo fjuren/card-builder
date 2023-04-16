@@ -1,0 +1,43 @@
+nav {
+  width: 75rem;
+  margin: auto;
+}
+@media only screen and (max-width: 600px) {
+  nav {
+    width: auto;
+  }
+}
+
+#nav-logout-grid-container {
+  display: grid;
+  grid-template-columns: [start] auto [line3] 4rem [line4] 4rem [end];
+}
+#nav-login-grid-container {
+  display: grid;
+  grid-template-columns: [start] 3rem [line2] auto [line3] 3rem [line4] 4rem[end];
+}
+
+.grid-item-1 {
+  justify-self: start;
+}
+.grid-item-2 {
+  justify-self: start;
+}
+.grid-item-3 {
+  justify-self: end;
+}
+.grid-item-4 {
+  justify-self: end;
+}
+
+.grid-item-5 {
+  display: grid;
+  justify-items: end;
+}
+
+.grid-item-6 {
+  justify-self: end;
+}
+.grid-item-7 {
+  justify-self: end;
+}

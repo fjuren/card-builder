@@ -1,0 +1,171 @@
+body {
+  padding: 0.3rem;
+  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+}
+
+#Community-page {
+  width: 75rem;
+  margin: auto;
+}
+@media only screen and (max-width: 600px) {
+  #Community-page {
+    width: auto;
+  }
+}
+
+#all-cards-grid-container {
+  display: grid;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+/* ==== Each card ==== */
+.card-container {
+  display: grid;
+  grid-template-areas:
+    'name hp hp type'
+    'cost_1 attack_1 attack_1 damage_1'
+    'attack_1_description attack_1_description attack_1_description attack_1_description'
+    'cost_2 attack_2 attack_2 damage_2'
+    'attack_2_description attack_2_description attack_2_description attack_2_description'
+    'weakness resistance resistance retreat_cost'
+    'description description description description';
+  padding: 6px;
+}
+
+.name {
+  grid-area: name;
+}
+.hp {
+  grid-area: hp;
+}
+.type {
+  grid-area: type;
+}
+.cost_1 {
+  grid-area: cost_1;
+}
+.attack_1 {
+  grid-area: attack_1;
+}
+.attack_1_description {
+  grid-area: attack_1_description;
+}
+.damage_1 {
+  grid-area: damage_1;
+}
+.cost_2 {
+  grid-area: cost_2;
+}
+.attack_2 {
+  grid-area: attack_2;
+}
+.attack_2_description {
+  grid-area: attack_2_description;
+}
+.damage_2 {
+  grid-area: damage_2;
+}
+.weakness {
+  grid-area: weakness;
+}
+.resistance {
+  grid-area: resistance;
+}
+.retreat_cost {
+  grid-area: retreat_cost;
+}
+.description {
+  grid-area: description;
+}
+
+#button-pos {
+  position: absolute;
+  left: 70rem;
+  top: 6rem;
+}
+@media only screen and (max-width: 600px) {
+  #button-pos {
+    position: fixed;
+    left: 16rem;
+    top: 48rem;
+  }
+}
+
+.button {
+  align-items: center;
+  appearance: none;
+  background-color: lightcoral;
+  border-radius: 24px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
+    rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
+  box-sizing: border-box;
+  color: #3c4043;
+  cursor: pointer;
+  display: inline-flex;
+  fill: currentcolor;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 48px;
+  justify-content: center;
+  letter-spacing: 0.25px;
+  line-height: normal;
+  max-width: 100%;
+  overflow: visible;
+  padding: 2px 24px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+  will-change: transform, opacity;
+  z-index: 0;
+}
+
+.button:hover {
+  background: rgb(241, 109, 109);
+  color: #3c4043;
+}
+
+.button:active {
+  box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%),
+    0 8px 12px 6px rgb(60 64 67 / 15%);
+  outline: none;
+}
+
+.button:focus {
+  outline: none;
+  border: 2px solid rgb(232, 60, 60);
+}
+
+.button:not(:disabled) {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 3px 0,
+    rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
+}
+
+.button:not(:disabled):hover {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 2px 3px 0,
+    rgba(60, 64, 67, 0.15) 0 6px 10px 4px;
+}
+
+.button:not(:disabled):focus {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 3px 0,
+    rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
+}
+
+.button:not(:disabled):active {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 4px 4px 0,
+    rgba(60, 64, 67, 0.15) 0 8px 12px 6px;
+}
+
+.button:disabled {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 3px 0,
+    rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
+}

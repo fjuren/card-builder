@@ -7,7 +7,8 @@
     <title>Card creator</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/header.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/index.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 
@@ -17,31 +18,34 @@
       <!-- Nav Bar -->
       <nav>
             <!-- display username if user is logged in -->
-        <div>
-          <% if (user) { %>
-            <div class="home">
+        
+        <% if (user) { %>
+          <div id="nav-login-grid-container">
+            <div class="grid-item grid-item-1">
               <a href="/cards">Home</a>
             </div>
-            <div class="home">
+            <div class="grid-item grid-item-2">
               <a href="/mycards">My cards</a>
             </div>
-            <div>
-              <p><%= user.firstname %></p>
-            </div>
-            <div>
-              <a href="/log-out">Log out</a>
-            </div>
-            <div>
+            <div class="grid-item grid-item-3">
               <a href="/settings">Settings</a>
             </div>
+            <div class="grid-item grid-item-4">
+              <a href="/log-out">Log out</a>
+            </div>
+          </div>
+          <div class="grid-item grid-item-5">
+            <p>Hi, <%= user.firstname %></p>
+          </div>
           <% } else { %>
-          <div class="home">
+        <div id="nav-logout-grid-container">
+          <div class="grid-item grid-item-1">
             <a href="/cards">Home</a>
           </div>
-          <div class="sign-up">
+          <div class="grid-item grid-item-6">
               <a href="/signup">Sign up</a>
           </div>
-          <div class="login">
+          <div class="grid-item grid-item-7">
               <a href="/login">Login</a>
           </div>
           <% } %> 

@@ -1,22 +1,24 @@
 <%- include("partials/header", {user: user}) -%>
 
-  <body>
+  <div id="Community-page">
     <% if (error) { %>
     <h1><%= title %></h1>
     <p>Sorry there was an error. Please try again later</p>
     <% } %>
     <h1><%= title %></h1>
     <% if (user && user.isAdmin === true || user && user.membershipstatus === true) {%>
-    <a class="button" href="/cards/create-card">Create card</a>
+    <div id="button-pos">
+      <a class="button" href="/cards/create-card" style="text-decoration:none">Create card</a>
+    </div>
     <% } else {null} %>
     <% if (user) {null} else { %>
       <p>Sign up and join our awesome community of members to start creating new cards!</p>
     <% } %>
     <p>Number of cards created: <%= cardCount %></p>
-    <div id="all-cards">
+    <div id="all-cards-grid-container">
       <% allCardData.forEach((c) => { %>
-      <div>
-        <a href="<%= c.cards_url %>">
+      <div id="all-cards-grid-item">
+        <a href="<%= c.cards_url %>" style="text-decoration:none">
           <div
             class="card-container"
             style="border-color: black; border-width: 5px; border: solid"
@@ -29,67 +31,97 @@
               </form>
             </div>
             <% } else {null} %>
-            <div class="name">
+            <div class="card-item name">
               <h4><%= c.name %></h4>
             </div>
-            <div class="hp">
+            <div class="card-item hp">
               <h4><%= c.hp %> HP</h4>
             </div>
-            <div class="type">
-              <p>Type: <%= c.type.type %> type</p>
+            <div class="card-item type">
+              <h4>Type</h4>
+              <p><%= c.type.type %></p>
             </div>
             <!-- <div class="image">
               <p>Image <%= c.image %></p>
             </div> -->
-            <div class="cost_1">
-              <p>Cost:</p>
+            <div class="card-item cost_1">
+              <h4>Cost</h4>
               <% c.cost_1.forEach((c1) => { %>
-              <p><%= c1.type %></p>
+                <% if (c1.type) { %>
+                <div>
+                  <p><%= c1.type %></p>
+                </div>
+                <% } else {}  %>
               <% }) %>
             </div>
-            <div class="attack_1">
-              <h4><%= c.attack_1 %></h4>
+            <div class="card-item attack_1">
+              <h4>Attack</h4>
+              <p><%= c.attack_1 %></p>
             </div>
-            <div class="attack_1_description">
+            <div class="card-item attack_1_description">
+              <h4>Description</h4>
+              <% if (c.attack_1_description) {%>
               <p><%= c.attack_1_description %></p>
+              <% } else {  %>
+                <p> - </p>
+              <% } %>
             </div>
-            <div class="damage_1">
-              <h4><%= c.damage_1 %></h4>
+            <div class="card-item damage_1">
+              <h4>Damange</h4>
+              <p><%= c.damage_1 %></p>
             </div>
-            <div class="cost_2">
-              <p>Cost:</p>
+            <div class="card-item cost_2">
+              <h4>Cost</h4>
               <% c.cost_2.forEach((c2) => { %>
-              <p><%= c2.type %></p>
+                <% if (c2.type) { %>
+                <div>
+                  <p><%= c2.type %></p>
+                </div>
+                <% } else {}  %>
               <% }) %>
             </div>
-            <div class="attack_2">
-              <h4><%= c.attack_2 %></h4>
+            <div class="card-item attack_2">
+              <h4>Attack</h4>
+              <p><%= c.attack_2 %></p>
             </div>
-            <div class="attack_2_description">
+            <div class="card-item attack_2_description">
+              <h4>Description</h4>
+              <% if (c.attack_2_description) {%>
               <p><%= c.attack_2_description %></p>
+              <% } else {  %>
+                <p> - </p>
+              <% } %>
             </div>
-            <div class="damage_2">
-              <h4><%= c.damage_2 %></h4>
+            <div class="card-item damage_2">
+              <h4>Damage</h4>
+              <p><%= c.damage_2 %></p>
             </div>
-            <div class="weakness">
-              <p>Weakness:</p>
+            <div class="card-item weakness">
+              <h4>Weakness</h4>
               <% c.weakness.forEach((w) => { %>
-              <p><%= w.type %></p>
+                <div>
+                  <p><%= w.type %></p>
+                </div>
               <% }) %>
             </div>
-            <div class="resistance">
-              <p>Resistance:</p>
+            <div class="card-item resistance">
+              <h4>Resistance</h4>
               <% c.resistance.forEach((r) => { %>
-              <p><%= r.type %></p>
+                <div>
+                  <p><%= r.type %></p>
+                </div>
               <% }) %>
             </div>
-            <div class="retreat_cost">
-              <p>Retreat cost:</p>
+            <div class="card-item retreat_cost">
+              <h4>Retreat cost</h4>
               <% c.retreat_cost.forEach((rc) => { %>
-              <p><%= rc.type %></p>
+                <div>
+                  <p><%= rc.type %></p>
+                </div>
               <% }) %>
             </div>
-            <div class="description">
+            <div class="card-item description">
+              <h4>Description</h4>
               <p><%= c.description %></p>
             </div>
           </div>
@@ -97,5 +129,5 @@
       </div>
       <% }) %>
     </div>
-  </body>
+  </div>
 </html>
