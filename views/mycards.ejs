@@ -43,13 +43,13 @@
               </div> -->
               <div class="card-item cost_1">
                 <h4>Cost</h4>
-                <% c.cost_1.forEach((c1) => { %>
-                  <% if (c1.type) { %>
-                  <div>
+                <% if (c.cost_1.length !==0) { %>
+                  <% c.cost_1.forEach((c1) => { %>
                     <p><%= c1.type %></p>
-                  </div>
-                  <% } else {}  %>
-                <% }) %>
+                    <% }) %>
+                <% } else { %>
+                  <p> - </p> 
+                  <% } %>
               </div>
               <div class="card-item attack_1">
                 <h4>Attack</h4>
@@ -65,21 +65,29 @@
               </div>
               <div class="card-item damage_1">
                 <h4>Damange</h4>
-                <p><%= c.damage_1 %></p>
+                <% if (c.damage_1) { %>
+                  <p><%= c.damage_1 %></p>
+                  <% } else { %>
+                    <p> - </p>
+                  <% } %>
               </div>
               <div class="card-item cost_2">
                 <h4>Cost</h4>
-                <% c.cost_2.forEach((c2) => { %>
-                  <% if (c2.type) { %>
-                  <div>
+                <% if (c.cost_2.length !==0) { %>
+                  <% c.cost_2.forEach((c2) => { %>
                     <p><%= c2.type %></p>
-                  </div>
-                  <% } else {}  %>
-                <% }) %>
+                    <% }) %>
+                <% } else { %>
+                  <p> - </p> 
+                  <% } %>
               </div>
               <div class="card-item attack_2">
                 <h4>Attack</h4>
-                <p><%= c.attack_2 %></p>
+                <% if (c.attack_2) { %>
+                  <p><%= c.attack_2 %></p>
+                  <% } else { %>
+                    <p> - </p>
+                  <% } %>
               </div>
               <div class="card-item attack_2_description">
                 <h4>Description</h4>
@@ -91,31 +99,41 @@
               </div>
               <div class="card-item damage_2">
                 <h4>Damage</h4>
-                <p><%= c.damage_2 %></p>
+                <% if (c.damage_2) { %>
+                  <p><%= c.damage_2 %></p>
+                  <% } else { %>
+                    <p> - </p>
+                  <% } %>
               </div>
               <div class="card-item weakness">
                 <h4>Weakness</h4>
-                <% c.weakness.forEach((w) => { %>
-                  <div>
+                <% if (c.weakness.length !==0) { %>
+                  <% c.weakness.forEach((w) => { %>
                     <p><%= w.type %></p>
-                  </div>
-                <% }) %>
+                    <% }) %>
+                <% } else { %>
+                  <p> - </p> 
+                  <% } %>
               </div>
               <div class="card-item resistance">
                 <h4>Resistance</h4>
-                <% c.resistance.forEach((r) => { %>
-                  <div>
+                <% if (c.resistance.length !==0) { %>
+                  <% c.resistance.forEach((r) => { %>
                     <p><%= r.type %></p>
-                  </div>
-                <% }) %>
+                    <% }) %>
+                <% } else { %>
+                  <p> - </p> 
+                  <% } %>
               </div>
               <div class="card-item retreat_cost">
                 <h4>Retreat cost</h4>
-                <% c.retreat_cost.forEach((rc) => { %>
-                  <div>
+                <% if (c.retreat_cost.length !==0) { %>
+                  <% c.retreat_cost.forEach((rc) => { %>
                     <p><%= rc.type %></p>
-                  </div>
-                <% }) %>
+                    <% }) %>
+                <% } else { %>
+                  <p> - </p> 
+                  <% } %>
               </div>
               <div class="card-item description">
                 <h4>Description</h4>
