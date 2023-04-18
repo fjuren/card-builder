@@ -1,0 +1,17 @@
+#Card-details-page {
+  width: 75rem;
+  margin: auto;
+}
+
+.card-container {
+  display: grid;
+  grid-template-areas:
+    'name hp hp type'
+    'cost_1 attack_1 attack_1 damage_1'
+    'attack_1_description attack_1_description attack_1_description attack_1_description'
+    'cost_2 attack_2 attack_2 damage_2'
+    'attack_2_description attack_2_description attack_2_description attack_2_description'
+    'weakness resistance resistance retreat_cost'
+    'description description description description';
+  padding: 6px;
+}

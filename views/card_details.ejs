@@ -1,6 +1,6 @@
 <%- include("partials/header", {user: user}) -%>
 
-  <body>
+  <div id="Card-details-page">
     <a href="/cards"> < back </a>
     <h1><%= title %></h1>
     <!-- change membershipstatus === true to checking if the user who created the card is the same who is logged in. Only admin roles or user card creators should be able to edit/delete cards -->
@@ -17,67 +17,114 @@
       class="card-container"
       style="border-color: black; border-width: 5px; border: solid"
     >
-      <div clas="name">
+      <div class="name">
         <h4><%= cardDetails.name %></h4>
       </div>
       <div class="hp">
         <h4><%= cardDetails.hp %> HP</h4>
       </div>
       <div class="type">
-        <p>Type: <%= cardDetails.type.type %> type</p>
+        <h4>Type</h4>
+        <p><%= cardDetails.type.type %></p>
       </div>
-      <div class="image">
+      <!-- <div class="image">
         <p>Image will be displayed here</p>
-      </div>
+      </div> -->
       <div class="cost_1">
         <p>Cost:</p>
-        <% cardDetails.cost_1.forEach((c1) => { %>
-        <p><%= c1.type %></p>
-        <% }) %>
+        <% if (cardDetails.cost_1.length !==0) { %>
+          <% cardDetails.cost_1.forEach((c1) => { %>
+            <p><%= c1.type %></p>
+            <% }) %>
+        <% } else { %>
+          <p> - </p> 
+          <% } %>
       </div>
       <div class="attack_1">
         <h4><%= cardDetails.attack_1 %></h4>
       </div>
       <div class="attack_1_description">
+        <h4>Description</h4>
+        <% if (cardDetails.attack_1_description) {%>
         <p><%= cardDetails.attack_1_description %></p>
+        <% } else {  %>
+          <p> - </p>
+        <% } %>
       </div>
       <div class="damage_1">
-        <h4><%= cardDetails.damage_1 %></h4>
+        <h4>Damage</h4>
+        <% if (cardDetails.damage_1) { %>
+          <p><%= cardDetails.damage_1 %></p>
+          <% } else { %>
+            <p> - </p>
+          <% } %>
       </div>
       <div class="cost_2">
         <p>Cost:</p>
-        <% cardDetails.cost_2.forEach((c2) => { %>
-        <p><%= c2.type %></p>
-        <% }) %>
+        <% if (cardDetails.cost_2.length !==0) { %>
+          <% cardDetails.cost_2.forEach((c2) => { %>
+            <p><%= c2.type %></p>
+            <% }) %>
+        <% } else { %>
+          <p> - </p> 
+          <% } %>
       </div>
       <div class="attack_2">
-        <h4><%= cardDetails.attack_2 %></h4>
+        <h4>Attack</h4>
+        <% if (cardDetails.attack_2) { %>
+          <p><%= cardDetails.attack_2 %></p>
+          <% } else { %>
+            <p> - </p>
+          <% } %>
       </div>
       <div class="attack_2_description">
+        <h4>Description</h4>
+        <% if (cardDetails.attack_2_description) {%>
         <p><%= cardDetails.attack_2_description %></p>
+        <% } else {  %>
+          <p> - </p>
+        <% } %>
       </div>
       <div class="damage_2">
-        <h4><%= cardDetails.damage_2 %></h4>
+        <h4>Damage</h4>
+        <% if (cardDetails.damage_2) { %>
+          <p><%= cardDetails.damage_2 %></p>
+          <% } else { %>
+            <p> - </p>
+          <% } %>
       </div>
       <div class="weakness">
-        <p>Weakness:</p>
-        <% cardDetails.weakness.forEach((w) => { %>
-        <p><%= w.type %></p>
-        <% }) %>
+        <h4>Weakness:</h4>
+        <% if (cardDetails.weakness.length !==0) { %>
+          <% cardDetails.weakness.forEach((w) => { %>
+            <p><%= w.type %></p>
+            <% }) %>
+        <% } else { %>
+          <p> - </p> 
+          <% } %>
       </div>
       <div class="resistance">
-        <p>Resistance:</p>
-        <% cardDetails.resistance.forEach((r) => { %>
-        <p><%= r.type %></p>
-        <% }) %>
+        <h4>Resistance</h4>
+        <% if (cardDetails.resistance.length !==0) { %>
+          <% cardDetails.resistance.forEach((r) => { %>
+            <p><%= r.type %></p>
+            <% }) %>
+        <% } else { %>
+          <p> - </p> 
+          <% } %>
       </div>
       <div class="retreat_cost">
-        <p>Retreat cost:</p>
-        <% cardDetails.retreat_cost.forEach((rc) => { %>
-        <p><%= rc.type %></p>
-        <% }) %>
+        <h4>Retreat cost</h4>
+        <% if (cardDetails.retreat_cost.length !==0) { %>
+          <% cardDetails.retreat_cost.forEach((rc) => { %>
+            <p><%= rc.type %></p>
+            <% }) %>
+        <% } else { %>
+          <p> - </p> 
+          <% } %>
       </div>
       <div class="description">
+        <h4>Description</h4>
         <p><%= cardDetails.description %></p>
       </div>
     </div>
@@ -119,5 +166,5 @@
         </div>
       <% }) %>
     </div>
-  </body>
+  </div>
 </html>
