@@ -10,7 +10,7 @@ module.exports.isAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.status(401).json({ msg: 'Sorry, you must log in to access this page' });
+    res.status(401).json({ msg: 'Sorry, you must be logged in to do this' });
   }
 };
 
@@ -18,8 +18,11 @@ module.exports.isMember = (req, res, next) => {
   if (req.user.membershipstatus === true) {
     next();
   } else {
-    res.status(403).json({
-      msg: 'Sorry, you must log in and sign up to be a member to access this page',
+    res.status(403);
+    url = req.url;
+    res.render('403', {
+      error: 'Oops! Sorry your ran into an error',
+      msg: 'You must sign up for our membrship to access this page. Go to your settings page to become a member!',
     });
   }
 };
@@ -28,6 +31,11 @@ module.exports.isAdmin = (req, res, next) => {
   if (req.user.isAdmin === true) {
     next();
   } else {
-    res.status(403).json({ msg: 'Sorry, you must be an admin to do this' });
+    res.status(403);
+    url = req.url;
+    res.render('403', {
+      error: 'Oops! Sorry your ran into an error',
+      msg: 'You must have an admin account to complete this action',
+    });
   }
 };
