@@ -1,6 +1,57 @@
 #Card-details-page {
   width: 75rem;
   margin: auto;
+  display: grid;
+}
+@media only screen and (max-width: 600px) {
+  #Card-details-page {
+    width: auto;
+  }
+}
+
+#Card-details-grid-container {
+  display: grid;
+  max-width: 1200px;
+  margin: 0 auto;
+  grid-template-columns: 36rem;
+}
+@media only screen and (max-width: 600px) {
+  #Card-details-grid-container {
+    width: 23rem;
+    grid-template-columns: auto;
+  }
+  texarea {
+    width: 5rem;
+  }
+}
+
+#comments {
+  padding-top: 1rem;
+}
+
+.comment {
+  padding: 20px;
+  margin: 20px;
+  display: grid;
+  grid-template-areas:
+    'user date'
+    'body body';
+  border-radius: 25px;
+  background: lightgray;
+  /* padding: 20px; */
+  /* width: 200px;
+  height: 150px; */
+}
+
+.user {
+  grid-area: user;
+}
+.body {
+  grid-area: body;
+}
+.date {
+  grid-area: date;
+  justify-self: right;
 }
 
 .card-container {
@@ -14,4 +65,81 @@
     'weakness resistance resistance retreat_cost'
     'description description description description';
   padding: 6px;
+}
+
+.post-button {
+  align-items: center;
+  appearance: none;
+  background-color: lightcoral;
+  border-radius: 24px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
+    rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
+  box-sizing: border-box;
+  color: #3c4043;
+  cursor: pointer;
+  display: inline-flex;
+  fill: currentcolor;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 48px;
+  justify-content: center;
+  letter-spacing: 0.25px;
+  line-height: normal;
+  max-width: 100%;
+  overflow: visible;
+  padding: 2px 24px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+  will-change: transform, opacity;
+  z-index: 0;
+}
+
+.post-button:hover {
+  background: rgb(241, 109, 109);
+  color: #3c4043;
+}
+
+.post-button:active {
+  box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%),
+    0 8px 12px 6px rgb(60 64 67 / 15%);
+  outline: none;
+}
+
+.post-button:focus {
+  outline: none;
+  border: 2px solid rgb(232, 60, 60);
+}
+
+.post-button:not(:disabled) {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 3px 0,
+    rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
+}
+
+.post-button:not(:disabled):hover {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 2px 3px 0,
+    rgba(60, 64, 67, 0.15) 0 6px 10px 4px;
+}
+
+.post-button:not(:disabled):focus {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 3px 0,
+    rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
+}
+
+.post-button:not(:disabled):active {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 4px 4px 0,
+    rgba(60, 64, 67, 0.15) 0 8px 12px 6px;
+}
+
+.post-button:disabled {
+  box-shadow: rgba(60, 64, 67, 0.3) 0 1px 3px 0,
+    rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
 }

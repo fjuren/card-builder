@@ -4,6 +4,7 @@
     <a href="/cards"> < back </a>
     <h1><%= title %></h1>
     <!-- change membershipstatus === true to checking if the user who created the card is the same who is logged in. Only admin roles or user card creators should be able to edit/delete cards -->
+    <div id="Card-details-grid-container">
     <% if (user && user.isAdmin === true) {%>
     <a class="button" href="<%= cardDetails._id%>/edit">Edit</a>
     <div>
@@ -129,16 +130,17 @@
       </div>
     </div>
     <% if (user) {%>
+    </div>
       <div id="comment-section-title">
-        <h2>Leave a comments</h2>
+        <h2>Leave a comment</h2>
       </div>
     <div id="comment-form">
       <form action="/cards/card/:id/comments/create" method="post" onsubmit="refreshComments()">
         <div>
-          <textarea name="body" id="body" cols="50" rows="5" placeholder="Leave a comment..."></textarea>
+          <textarea name="body" id="body" rows="4" style="width: 100%; max-width: 100%" placeholder="Leave a comment..."></textarea>
         </div>
         <input type="hidden" name="cardId" value="<%= cardDetails._id %>">
-        <input type="submit" value="Post">
+        <input class="post-button" type="submit" value="Post">
       </form>
     </div>
     <script>
@@ -155,14 +157,16 @@
       <% } %>
     <div id="comments">
       <% comments.forEach((comment) => { %>
-        <div class="user">
-          <%= comment.user_id.username %>
-        </div>
         <div class="comment">
-          <%= comment.body %>
-        </div>
-        <div class="date">
-          <%= comment.comment_date %>
+          <div class="user" style="font-weight: 700">
+            <%= comment.user_id.username %>
+          </div>
+          <div class="body">
+            <%= comment.body %>
+          </div>
+          <div class="date" style="color: grey">
+            <%= comment.comment_date %>
+          </div>
         </div>
       <% }) %>
     </div>

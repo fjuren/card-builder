@@ -1,0 +1,12 @@
+#button-pos {
+  position: absolute;
+  left: 70rem;
+  top: 6rem;
+}
+@media only screen and (max-width: 600px) {
+  #button-pos {
+    position: fixed;
+    left: 16rem;
+    top: 48rem;
+  }
+}
