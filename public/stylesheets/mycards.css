@@ -1,3 +1,85 @@
+body {
+  padding: 0.3rem;
+  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+}
+
+#Mycards-page {
+  width: 75rem;
+  margin: auto;
+}
+@media only screen and (max-width: 600px) {
+  #Mycards-page {
+    width: auto;
+  }
+}
+
+#my-cards-grid-container {
+  display: grid;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+/* ==== Each card ==== */
+.card-container {
+  display: grid;
+  grid-template-areas:
+    'name hp hp type'
+    'cost_1 attack_1 attack_1 damage_1'
+    'attack_1_description attack_1_description attack_1_description attack_1_description'
+    'cost_2 attack_2 attack_2 damage_2'
+    'attack_2_description attack_2_description attack_2_description attack_2_description'
+    'weakness resistance resistance retreat_cost'
+    'description description description description';
+  padding: 6px;
+}
+
+.name {
+  grid-area: name;
+}
+.hp {
+  grid-area: hp;
+}
+.type {
+  grid-area: type;
+}
+.cost_1 {
+  grid-area: cost_1;
+}
+.attack_1 {
+  grid-area: attack_1;
+}
+.attack_1_description {
+  grid-area: attack_1_description;
+}
+.damage_1 {
+  grid-area: damage_1;
+}
+.cost_2 {
+  grid-area: cost_2;
+}
+.attack_2 {
+  grid-area: attack_2;
+}
+.attack_2_description {
+  grid-area: attack_2_description;
+}
+.damage_2 {
+  grid-area: damage_2;
+}
+.weakness {
+  grid-area: weakness;
+}
+.resistance {
+  grid-area: resistance;
+}
+.retreat_cost {
+  grid-area: retreat_cost;
+}
+.description {
+  grid-area: description;
+}
+
 #button-pos {
   position: absolute;
   left: 70rem;
